@@ -27,7 +27,6 @@ public abstract class DatabaseManager {
 		Connection connection = null;
 		
 		try {
-			
 //			The first(hidden) option here is dangerous - because we will prefer to use singleton in our connection to the database(connectionPool class).
 //			connection = DriverManager.getConnection(url, username, password);
 //			Here is the Bats Practice:
