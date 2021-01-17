@@ -79,7 +79,7 @@ public class ConnectionPool {
 		}
 	}
 
-	/**sss
+	/**ssss
 	 * When element finished working and 'push' the element outside the query, and
 	 * then 'notify' that this space is empty again.
 	 * 
