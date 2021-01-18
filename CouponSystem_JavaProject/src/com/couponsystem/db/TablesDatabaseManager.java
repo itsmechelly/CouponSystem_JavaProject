@@ -1,4 +1,4 @@
-package com.coupon_system.db;
+package com.couponsystem.db;
 
 public class TablesDatabaseManager extends DatabaseManager {
 

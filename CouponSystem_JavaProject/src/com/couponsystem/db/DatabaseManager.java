@@ -1,4 +1,4 @@
-package com.coupon_system.db;
+package com.couponsystem.db;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

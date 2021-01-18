@@ -1,4 +1,4 @@
-package com.coupon_system_beans;
+package com.couponsystem.beans;
 
 public enum Category {
 
