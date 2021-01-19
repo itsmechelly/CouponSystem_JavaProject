@@ -1,5 +1,6 @@
 package com.couponsystem.DAO;
 
-public class CategoryDAO {
+public interface CategoryDAO {
 
+	void addCategory(int id, String category);
 }
