@@ -1,4 +1,4 @@
-package com.couponsystem.DAO;
+package com.couponsystem.dao;
 
 import java.util.List;
 
