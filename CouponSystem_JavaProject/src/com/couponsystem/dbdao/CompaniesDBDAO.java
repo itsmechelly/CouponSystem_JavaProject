@@ -1,11 +1,14 @@
 package com.couponsystem.dbdao;
 
+import java.sql.Connection;
 import java.util.List;
 
 import com.couponsystem.beans.Company;
 import com.couponsystem.dao.CompaniesDAO;
 
 public class CompaniesDBDAO implements CompaniesDAO {
+
+	private Connection connection;
 
 	private static final String ADD_COMPANY_QUERY = "INSERT INTO `coupon_system`.`companies` (`name`, `email`, `password`) VALUES (?, ?, ?);";
 	private static final String UPDATE_COMPANY_QUERY = "UPDATE `coupon_system`.`companies` SET `name` = ?, `email` = ?, `password` = ? WHERE (`id` = ?);";

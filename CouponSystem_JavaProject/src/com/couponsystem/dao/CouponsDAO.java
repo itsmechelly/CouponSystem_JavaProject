@@ -3,6 +3,7 @@ package com.couponsystem.dao;
 import java.util.List;
 
 import com.couponsystem.beans.Coupon;
+import com.couponsystem.beans.CustomersVsCoupons;
 
 public interface CouponsDAO {
 

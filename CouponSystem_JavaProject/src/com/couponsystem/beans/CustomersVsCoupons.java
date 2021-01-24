@@ -1,11 +1,11 @@
 package com.couponsystem.beans;
 
-public class CustomerVsCoupons {
+public class CustomersVsCoupons {
 
 	private int customerId;
 	private int couponId;
 
-	public CustomerVsCoupons() {
+	public CustomersVsCoupons() {
 		super();
 	}
 
