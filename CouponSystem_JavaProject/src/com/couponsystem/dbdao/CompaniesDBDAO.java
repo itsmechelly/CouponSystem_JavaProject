@@ -1,10 +1,12 @@
 package com.couponsystem.dbdao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.List;
 
 import com.couponsystem.beans.Company;
 import com.couponsystem.dao.CompaniesDAO;
+import com.couponsystem.db.ConnectionPool;
 
 public class CompaniesDBDAO implements CompaniesDAO {
 
@@ -20,8 +22,26 @@ public class CompaniesDBDAO implements CompaniesDAO {
 
 	@Override
 	public void addCompany(Company company) {
-		// TODO Auto-generated method stub
 
+		try {
+			connection = ConnectionPool.getInstance().getConnection();
+
+			String sql = ADD_COMPANY_QUERY;
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+
+			statement.setString(1, company.getName());
+			statement.setString(2, company.getEmail());
+			statement.setString(3, company.getPassword());
+
+			statement.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionPool.getInstance().returnConnection(connection);
+			connection = null;
+		}
 	}
 
 	@Override
