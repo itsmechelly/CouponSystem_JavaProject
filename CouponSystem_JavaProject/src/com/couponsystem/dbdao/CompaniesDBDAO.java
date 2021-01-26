@@ -72,7 +72,24 @@ public class CompaniesDBDAO implements CompaniesDAO {
 
 	@Override
 	public void deleteCompany(int companyID) {
-		// TODO Auto-generated method stub
+
+		try {
+			connection = ConnectionPool.getInstance().getConnection();
+			
+			String sql = DELETE_COMPANY_QUERY;
+			
+			PreparedStatement statement = connection.prepareStatement(sql);
+			
+			statement.setInt(1, companyID);
+			
+			statement.executeUpdate();
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionPool.getInstance().returnConnection(connection);
+			connection = null;
+		}
 
 	}
 
