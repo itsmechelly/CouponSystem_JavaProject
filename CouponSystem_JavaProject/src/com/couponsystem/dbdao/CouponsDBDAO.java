@@ -1,11 +1,18 @@
 package com.couponsystem.dbdao;
 
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.couponsystem.beans.Category;
 import com.couponsystem.beans.Coupon;
 import com.couponsystem.beans.CustomersVsCoupons;
 import com.couponsystem.dao.CouponsDAO;
+import com.couponsystem.db.ConnectionPool;
+import com.couponsystem.utils.DateUtils;
 
 public class CouponsDBDAO implements CouponsDAO {
 
@@ -26,73 +33,399 @@ public class CouponsDBDAO implements CouponsDAO {
 
 	@Override
 	public void addCoupon(Coupon coupon) {
-		// TODO Auto-generated method stub
+
+		try {
+			connection = ConnectionPool.getInstance().getConnection();
+
+			String sql = ADD_COUPON_QUERY;
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+
+			statement.setInt(1, coupon.getCompanyId());
+			statement.setInt(2, coupon.getCategory().ordinal() + 1);
+			statement.setString(3, coupon.getTitle());
+			statement.setString(4, coupon.getDescription());
+			statement.setDate(5, DateUtils.convertJavaUtilDateToSqlUtilDate(coupon.getStartDate()));
+			statement.setDate(6, DateUtils.convertJavaUtilDateToSqlUtilDate(coupon.getEndDate()));
+			statement.setInt(7, coupon.getAmount());
+			statement.setDouble(8, coupon.getPrice());
+			statement.setString(9, coupon.getImage());
+
+			statement.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionPool.getInstance().returnConnection(connection);
+			connection = null;
+		}
 
 	}
 
 	@Override
 	public void updateCoupon(Coupon coupon) {
-		// TODO Auto-generated method stub
+
+		try {
+			connection = ConnectionPool.getInstance().getConnection();
+
+			String sql = UPDATE_COUPON_QUERY;
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+
+			statement.setInt(1, coupon.getCompanyId());
+			statement.setInt(2, coupon.getCategory().ordinal() + 1);
+			statement.setString(3, coupon.getTitle());
+			statement.setString(4, coupon.getDescription());
+			statement.setDate(5, (Date) coupon.getStartDate());
+			statement.setDate(6, (Date) coupon.getEndDate());
+			statement.setInt(7, coupon.getAmount());
+			statement.setDouble(8, coupon.getPrice());
+			statement.setString(9, coupon.getImage());
+			statement.setInt(10, coupon.getId());
+
+			statement.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionPool.getInstance().returnConnection(connection);
+			connection = null;
+		}
 
 	}
 
 	@Override
 	public void deleteCoupon(int couponID) {
-		// TODO Auto-generated method stub
+
+		try {
+			connection = ConnectionPool.getInstance().getConnection();
+
+			String sql = DELETE_COUPON_QUERY;
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+
+			statement.setInt(1, couponID);
+
+			statement.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionPool.getInstance().returnConnection(connection);
+			connection = null;
+		}
 
 	}
 
 	@Override
 	public Coupon getOneCoupon(int couponID) {
-		// TODO Auto-generated method stub
+
+		try {
+			connection = ConnectionPool.getInstance().getConnection();
+
+			String sql = GET_ONE_COUPON_QUERY;
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+
+			statement.setInt(1, couponID);
+
+			ResultSet resultSet = statement.executeQuery();
+
+			while (resultSet.next()) {
+				Coupon coupon = new Coupon();
+				coupon.setId(resultSet.getInt(1));
+				coupon.setCompanyId(resultSet.getInt(2));
+				coupon.setCategory(Category.values()[resultSet.getInt(3) - 1]);
+				coupon.setTitle(resultSet.getString(4));
+				coupon.setDescription(resultSet.getString(5));
+				coupon.setStartDate(resultSet.getDate(6));
+				coupon.setEndDate(resultSet.getDate(7));
+				coupon.setAmount(resultSet.getInt(8));
+				coupon.setPrice(resultSet.getDouble(9));
+				coupon.setImage(resultSet.getString(10));
+				return coupon;
+			}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionPool.getInstance().returnConnection(connection);
+			connection = null;
+		}
 		return null;
 	}
 
 	@Override
 	public List<Coupon> getAllCoupons() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public void addCouponPurchase(int customerID, int couponID) {
-		// TODO Auto-generated method stub
+		List<Coupon> coupons = new ArrayList<>();
 
-	}
+		try {
 
-	@Override
-	public void deleteCouponPurchase(int customerID, int couponID) {
-		// TODO Auto-generated method stub
+			connection = ConnectionPool.getInstance().getConnection();
 
+			String sql = GET_ALL_COUPONS_QUERY;
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+
+			ResultSet resultSet = statement.executeQuery();
+
+			while (resultSet.next()) {
+				Coupon coupon = new Coupon();
+				coupon.setId(resultSet.getInt(1));
+				coupon.setCompanyId(resultSet.getInt(2));
+				coupon.setCategory(Category.values()[resultSet.getInt(3) - 1]);
+				coupon.setTitle(resultSet.getString(4));
+				coupon.setDescription(resultSet.getString(5));
+				coupon.setStartDate(resultSet.getDate(6));
+				coupon.setEndDate(resultSet.getDate(7));
+				coupon.setAmount(resultSet.getInt(8));
+				coupon.setPrice(resultSet.getDouble(9));
+				coupon.setImage(resultSet.getString(10));
+				coupons.add(coupon);
+			}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionPool.getInstance().returnConnection(connection);
+			connection = null;
+		}
+		return coupons;
 	}
 
 	@Override
 	public boolean isCouponExists(int couponID) {
-		// TODO Auto-generated method stub
+
+		try {
+			connection = ConnectionPool.getInstance().getConnection();
+
+			String sql = IS_COUPON_EXISTS_QUERY;
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+
+			statement.setInt(1, couponID);
+
+			ResultSet resultSet = statement.executeQuery();
+
+			while (resultSet.next()) {
+				return true;
+			}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionPool.getInstance().returnConnection(connection);
+			connection = null;
+		}
 		return false;
 	}
 
 	@Override
-	public List<CustomersVsCoupons> getAllCustomersVsCoupons() {
-		// TODO Auto-generated method stub
-		return null;
+	public void addCouponPurchase(int customerID, int couponID) {
+
+		try {
+			connection = ConnectionPool.getInstance().getConnection();
+
+			String sql = ADD_COUPON_PURCHASE_QUERY;
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+
+			statement.setInt(1, customerID);
+			statement.setInt(2, couponID);
+
+			statement.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionPool.getInstance().returnConnection(connection);
+			connection = null;
+		}
 	}
 
+	@Override
+	public void deleteCouponPurchase(int customerID, int couponID) {
+
+		try {
+			connection = ConnectionPool.getInstance().getConnection();
+
+			String sql = DELETE_COUPON_PURCHASEE_QUERY;
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+
+			statement.setInt(1, customerID);
+			statement.setInt(2, couponID);
+
+			statement.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionPool.getInstance().returnConnection(connection);
+			connection = null;
+		}
+	}
+
+	/**
+	 * This method has been used in CustomerFacade.purchaseCoupon method.
+	 */
+	@Override
+	public List<CustomersVsCoupons> getAllCustomersVsCoupons() {
+
+		List<CustomersVsCoupons> customersVsCoupons = new ArrayList<>();
+
+		try {
+
+			connection = ConnectionPool.getInstance().getConnection();
+
+			String sql = GET_ALL_CUSTOMERS_VS_COUPONS_QUERY;
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+
+			ResultSet resultSet = statement.executeQuery();
+
+			while (resultSet.next()) {
+				CustomersVsCoupons custVsCoup = new CustomersVsCoupons();
+				custVsCoup.setCustomerId(resultSet.getInt(1));
+				custVsCoup.setCouponId(resultSet.getInt(2));
+				customersVsCoupons.add(custVsCoup);
+			}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionPool.getInstance().returnConnection(connection);
+			connection = null;
+		}
+		return customersVsCoupons;
+	}
+
+	/**
+	 * This method has been used in CompanyFacade.addCompanyCoupon method.
+	 */
 	@Override
 	public List<Coupon> getAllCouponsByCompanyID(int companyID) {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<Coupon> coupons = new ArrayList<Coupon>();
+
+		try {
+
+			connection = ConnectionPool.getInstance().getConnection();
+
+			String sql = GET_ALL_COUPONS_BY_COMPANY_ID_QUERY;
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+
+			statement.setInt(1, companyID);
+
+			ResultSet resultSet = statement.executeQuery();
+
+			while (resultSet.next()) {
+				Coupon coupon = new Coupon();
+				coupon.setId(resultSet.getInt(1));
+				coupon.setCompanyId(resultSet.getInt(2));
+				coupon.setCategory(Category.values()[resultSet.getInt(3) - 1]);
+				coupon.setTitle(resultSet.getString(4));
+				coupon.setDescription(resultSet.getString(5));
+				coupon.setStartDate(resultSet.getDate(6));
+				coupon.setEndDate(resultSet.getDate(7));
+				coupon.setAmount(resultSet.getInt(8));
+				coupon.setPrice(resultSet.getDouble(9));
+				coupon.setImage(resultSet.getString(10));
+				coupons.add(coupon);
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionPool.getInstance().returnConnection(connection);
+			connection = null;
+		}
+		return coupons;
 	}
 
+	/**
+	 * This method has been used in CustomerFacade.addCompanyCoupon method.
+	 */
 	@Override
 	public List<Coupon> getAllCouponsByCustomerID(int customerID) {
-		// TODO Auto-generated method stub
-		return null;
+
+		List<Coupon> coupons = new ArrayList<Coupon>();
+		List<Integer> nums = new ArrayList<Integer>();
+
+		try {
+			connection = ConnectionPool.getInstance().getConnection();
+
+			String sql = GET_ALL_COUPONS_BY_CUSTOMER_ID_QUERY;
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+
+			statement.setInt(1, customerID);
+
+			ResultSet resultSet = statement.executeQuery();
+
+			while (resultSet.next()) {
+
+				nums.add(resultSet.getInt(1));
+			}
+			for (int i = 0; i < nums.size(); i++) {
+
+				sql = GET_ONE_COUPON_QUERY;
+
+				statement = connection.prepareStatement(sql);
+				statement.setInt(1, nums.get(i));
+
+				resultSet = statement.executeQuery();
+
+				while (resultSet.next()) {
+					Coupon coupon = new Coupon();
+					coupon.setId(resultSet.getInt(1));
+					coupon.setCompanyId(resultSet.getInt(2));
+					coupon.setCategory(Category.values()[resultSet.getInt(3) - 1]);
+					coupon.setTitle(resultSet.getString(4));
+					coupon.setDescription(resultSet.getString(5));
+					coupon.setStartDate(resultSet.getDate(6));
+					coupon.setEndDate(resultSet.getDate(7));
+					coupon.setAmount(resultSet.getInt(8));
+					coupon.setPrice(resultSet.getDouble(9));
+					coupon.setImage(resultSet.getString(10));
+					coupons.add(coupon);
+				}
+			}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionPool.getInstance().returnConnection(connection);
+			connection = null;
+		}
+		return coupons;
 	}
 
+	/**
+	 * This method has been used in: adminFacade.deleteCompany,
+	 * companyFacade.deleteCompanyCoupon, CouponExpirationDailyJob method.
+	 */
 	@Override
 	public void deleteCouponPurchaseForFacade(int couponID) {
-		// TODO Auto-generated method stub
+
+		try {
+			connection = ConnectionPool.getInstance().getConnection();
+
+			String sql = DELETE_COUPON_PURCHASEE_QUERY_FOR_FACADE;
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+
+			statement.setInt(1, couponID);
+
+			statement.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionPool.getInstance().returnConnection(connection);
+			connection = null;
+		}
 
 	}
 
