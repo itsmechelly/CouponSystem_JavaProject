@@ -9,7 +9,6 @@ import java.util.List;
 import com.couponsystem.beans.Company;
 import com.couponsystem.dao.CompaniesDAO;
 import com.couponsystem.db.ConnectionPool;
-import com.mysql.cj.protocol.Resultset;
 
 public class CompaniesDBDAO implements CompaniesDAO {
 
@@ -190,7 +189,32 @@ public class CompaniesDBDAO implements CompaniesDAO {
 
 	@Override
 	public int getCompanyIdByEmailAndPassword(String email, String password) {
-		// TODO Auto-generated method stub
-		return 0;
+
+		int id = 0;
+
+		try {
+
+			connection = ConnectionPool.getInstance().getConnection();
+
+			String sql = GET_COMPANY_ID_BY_EMAIL_AND_PASSWORD_QUERY;
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+
+			statement.setString(1, email);
+			statement.setString(2, password);
+
+			ResultSet resultSet = statement.executeQuery();
+
+			if (resultSet.next()) {
+				id = resultSet.getInt(1);
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionPool.getInstance().returnConnection(connection);
+			connection = null;
+		}
+
+		return id;
 	}
 }
