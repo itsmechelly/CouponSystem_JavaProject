@@ -46,7 +46,27 @@ public class CompaniesDBDAO implements CompaniesDAO {
 
 	@Override
 	public void updateCompany(Company company) {
-		// TODO Auto-generated method stub
+
+		try {
+			connection = ConnectionPool.getInstance().getConnection();
+
+			String sql = UPDATE_COMPANY_QUERY;
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+
+			statement.setString(1, company.getName());
+			statement.setString(2, company.getEmail());
+			statement.setString(3, company.getPassword());
+			statement.setInt(4, company.getId());
+
+			statement.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionPool.getInstance().returnConnection(connection);
+			connection = null;
+		}
 
 	}
 
