@@ -18,7 +18,6 @@ public class CategoryDBDAO implements CategoryDAO {
 	public void addCategory(int id, String category) {
 
 		try {
-
 			connection = ConnectionPool.getInstance().getConnection();
 
 			String sql = "INSERT INTO `coupon_system`.`categories` (`id`, `name`) VALUES (?, ?);";

@@ -59,7 +59,6 @@ public class CouponsDBDAO implements CouponsDAO {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
 		}
-
 	}
 
 	@Override
@@ -91,7 +90,6 @@ public class CouponsDBDAO implements CouponsDAO {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
 		}
-
 	}
 
 	@Override
@@ -114,7 +112,6 @@ public class CouponsDBDAO implements CouponsDAO {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
 		}
-
 	}
 
 	@Override
@@ -161,7 +158,6 @@ public class CouponsDBDAO implements CouponsDAO {
 		List<Coupon> coupons = new ArrayList<>();
 
 		try {
-
 			connection = ConnectionPool.getInstance().getConnection();
 
 			String sql = GET_ALL_COUPONS_QUERY;
@@ -276,7 +272,6 @@ public class CouponsDBDAO implements CouponsDAO {
 		List<CustomersVsCoupons> customersVsCoupons = new ArrayList<>();
 
 		try {
-
 			connection = ConnectionPool.getInstance().getConnection();
 
 			String sql = GET_ALL_CUSTOMERS_VS_COUPONS_QUERY;
@@ -310,7 +305,6 @@ public class CouponsDBDAO implements CouponsDAO {
 		List<Coupon> coupons = new ArrayList<Coupon>();
 
 		try {
-
 			connection = ConnectionPool.getInstance().getConnection();
 
 			String sql = GET_ALL_COUPONS_BY_COMPANY_ID_QUERY;
@@ -335,6 +329,7 @@ public class CouponsDBDAO implements CouponsDAO {
 				coupon.setImage(resultSet.getString(10));
 				coupons.add(coupon);
 			}
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} finally {
@@ -365,14 +360,15 @@ public class CouponsDBDAO implements CouponsDAO {
 			ResultSet resultSet = statement.executeQuery();
 
 			while (resultSet.next()) {
-
 				nums.add(resultSet.getInt(1));
 			}
+			
 			for (int i = 0; i < nums.size(); i++) {
 
 				sql = GET_ONE_COUPON_QUERY;
 
 				statement = connection.prepareStatement(sql);
+				
 				statement.setInt(1, nums.get(i));
 
 				resultSet = statement.executeQuery();
@@ -426,7 +422,6 @@ public class CouponsDBDAO implements CouponsDAO {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
 		}
-
 	}
 
 }

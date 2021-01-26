@@ -69,7 +69,6 @@ public class CompaniesDBDAO implements CompaniesDAO {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
 		}
-
 	}
 
 	@Override
@@ -92,7 +91,6 @@ public class CompaniesDBDAO implements CompaniesDAO {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
 		}
-
 	}
 
 	@Override
@@ -138,6 +136,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
 			String sql = GET_ALL_COMPANIES_QUERY;
 
 			PreparedStatement statement = connection.prepareStatement(sql);
+			
 			ResultSet resultSet = statement.executeQuery();
 
 			while (resultSet.next()) {
@@ -176,6 +175,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
 			if (resultSet.next()) {
 				return true;
 			}
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} finally {
@@ -191,7 +191,6 @@ public class CompaniesDBDAO implements CompaniesDAO {
 		int id = 0;
 
 		try {
-
 			connection = ConnectionPool.getInstance().getConnection();
 
 			String sql = GET_COMPANY_ID_BY_EMAIL_AND_PASSWORD_QUERY;
@@ -206,13 +205,13 @@ public class CompaniesDBDAO implements CompaniesDAO {
 			if (resultSet.next()) {
 				id = resultSet.getInt(1);
 			}
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} finally {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
 		}
-
 		return id;
 	}
 }
