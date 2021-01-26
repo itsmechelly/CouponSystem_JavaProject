@@ -2,11 +2,13 @@ package com.couponsystem.dbdao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 
 import com.couponsystem.beans.Company;
 import com.couponsystem.dao.CompaniesDAO;
 import com.couponsystem.db.ConnectionPool;
+import com.mysql.cj.protocol.Resultset;
 
 public class CompaniesDBDAO implements CompaniesDAO {
 
@@ -75,15 +77,15 @@ public class CompaniesDBDAO implements CompaniesDAO {
 
 		try {
 			connection = ConnectionPool.getInstance().getConnection();
-			
+
 			String sql = DELETE_COMPANY_QUERY;
-			
+
 			PreparedStatement statement = connection.prepareStatement(sql);
-			
+
 			statement.setInt(1, companyID);
-			
+
 			statement.executeUpdate();
-			
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} finally {
@@ -95,7 +97,33 @@ public class CompaniesDBDAO implements CompaniesDAO {
 
 	@Override
 	public Company getOneCompany(int companyID) {
-		// TODO Auto-generated method stub
+
+		try {
+			connection = ConnectionPool.getInstance().getConnection();
+
+			String sql = GET_ONE_COMPANY_QUERY;
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+
+			statement.setInt(1, companyID);
+
+			ResultSet resultSet = statement.executeQuery();
+
+			while (resultSet.next()) {
+				Company company = new Company();
+				company.setId(resultSet.getInt(1));
+				company.setName(resultSet.getString(2));
+				company.setEmail(resultSet.getString(3));
+				company.setPassword(resultSet.getString(4));
+				return company;
+			}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionPool.getInstance().returnConnection(connection);
+			connection = null;
+		}
 		return null;
 	}
 
