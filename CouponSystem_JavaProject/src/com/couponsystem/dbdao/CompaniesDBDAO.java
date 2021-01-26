@@ -161,8 +161,6 @@ public class CompaniesDBDAO implements CompaniesDAO {
 	@Override
 	public boolean isCompanyExists(String email, String password) {
 
-		boolean res = false;
-
 		try {
 			connection = ConnectionPool.getInstance().getConnection();
 
@@ -176,7 +174,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
 			ResultSet resultSet = statement.executeQuery();
 
 			if (resultSet.next()) {
-				res = true;
+				return true;
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -184,7 +182,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
 		}
-		return res;
+		return false;
 	}
 
 	@Override
