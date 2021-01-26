@@ -161,8 +161,31 @@ public class CompaniesDBDAO implements CompaniesDAO {
 
 	@Override
 	public boolean isCompanyExists(String email, String password) {
-		// TODO Auto-generated method stub
-		return false;
+
+		boolean res = false;
+
+		try {
+			connection = ConnectionPool.getInstance().getConnection();
+
+			String sql = IS_COMPANY_EXISTS_QUERY;
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+
+			statement.setString(1, email);
+			statement.setString(2, password);
+
+			ResultSet resultSet = statement.executeQuery();
+
+			if (resultSet.next()) {
+				res = true;
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionPool.getInstance().returnConnection(connection);
+			connection = null;
+		}
+		return res;
 	}
 
 	@Override
