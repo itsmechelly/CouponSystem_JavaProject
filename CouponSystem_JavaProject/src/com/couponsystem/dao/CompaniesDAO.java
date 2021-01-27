@@ -18,6 +18,6 @@ public interface CompaniesDAO {
 
 	boolean isCompanyExists(String email, String password);
 
-	// This method used in companyFacade.login method;
-	int getCompanyIdByEmailAndPassword(String email, String password);
+	// This method has been used in companyFacade.getCompanyIdByEmailAndPassword method.
+	int getCompanyIdByEmailAndPasswordForLogin(String email, String password);
 }

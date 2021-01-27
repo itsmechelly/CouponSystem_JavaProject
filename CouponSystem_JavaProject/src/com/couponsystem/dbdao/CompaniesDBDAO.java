@@ -185,8 +185,11 @@ public class CompaniesDBDAO implements CompaniesDAO {
 		return false;
 	}
 
+	/**
+	 * This method has been used in companyFacade.getCompanyIdByEmailAndPasswordForLogin method.
+	 */
 	@Override
-	public int getCompanyIdByEmailAndPassword(String email, String password) {
+	public int getCompanyIdByEmailAndPasswordForLogin(String email, String password) {
 
 		int id = 0;
 

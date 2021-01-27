@@ -190,7 +190,7 @@ public class CustomersDBDAO implements CustomersDAO {
 	}
 
 	/**
-	 * This method has been used in customerFacade.login method.
+	 * This method has been used in customerFacade.getCustomerIdByEmailAndPasswordForLogin method.
 	 */
 	@Override
 	public int getCustomerIdByEmailAndPasswordForLogin(String email, String password) {
