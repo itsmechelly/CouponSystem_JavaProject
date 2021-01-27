@@ -2,8 +2,5 @@ package com.couponsystem.beans;
 
 public enum Category {
 
-	FOOD,
-	ELECTRICITY,
-	RESTAURANT,
-	VACATION
+	FOOD, ELECTRICITY, RESTAURANT, VACATION
 }
