@@ -42,7 +42,7 @@ public class TestUtils {
 		System.out.println("============================================================================");
 	}
 
-	public static void start() {
+	public static void loadingConnections() {
 		System.out.println("   _  \r\n" + " _( )_\r\n" + "(_ o _)\r\n" + " (_,_)");
 		System.out.println("        ___ _____ _   ___ _____ \r\n" + "       / __|_   _/_\\ | _ \\_   _|\r\n"
 				+ "       \\__ \\ | |/ _ \\|   / | |  \r\n" + "       |___/ |_/_/ \\_\\_|_\\ |_|  \r\n"
