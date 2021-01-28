@@ -18,7 +18,9 @@ public class CompanyFacade extends ClientFacade {
 
 	@Override
 	public boolean login(String email, String password) throws LogException {
-		// TODO Auto-generated method stub
+		if (companiesDAO.isCompanyExists(email, password)) {
+			return true;
+		}
 		return false;
 	}
 

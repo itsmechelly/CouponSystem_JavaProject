@@ -8,7 +8,9 @@ public class AdminFacade extends ClientFacade {
 
 	@Override
 	public boolean login(String email, String password) throws LogException {
-		// TODO Auto-generated method stub
+		if (email.equalsIgnoreCase("admin@admin.com") && password.equals("admin")) {
+			return true;
+		}
 		return false;
 	}
 

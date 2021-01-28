@@ -18,7 +18,9 @@ public class CustomerFacade extends ClientFacade {
 
 	@Override
 	public boolean login(String email, String password) throws LogException {
-		// TODO Auto-generated method stub
+		if (customersDAO.isCustomerExist(email, password)) {
+			return true;
+		}
 		return false;
 	}
 
