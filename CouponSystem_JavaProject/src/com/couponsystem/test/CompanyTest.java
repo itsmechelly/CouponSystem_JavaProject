@@ -36,7 +36,6 @@ public class CompanyTest {
 			categoryDAO.addCategory(4, "VACATION");
 		} catch (Exception e) {
 			e.getMessage();
-			e.printStackTrace();
 		}
 
 		try {

@@ -8,14 +8,17 @@ import com.couponsystem.dbdao.CategoryDBDAO;
 import com.couponsystem.dbdao.CompaniesDBDAO;
 import com.couponsystem.dbdao.CouponsDBDAO;
 import com.couponsystem.dbdao.CustomersDBDAO;
+import com.couponsystem.exceptions.LogException;
 import com.couponsystem.facade.CustomerFacade;
+import com.couponsystem.security.ClientType;
+import com.couponsystem.security.LoginManager;
 import com.couponsystem.utils.TestUtils;
 
 public class CustomerTest {
 
 	public static void customerTest() {
 
-		CustomerFacade customerFacade = new CustomerFacade();
+		CustomerFacade customerUser = new CustomerFacade();
 
 		CompaniesDAO companiesDAO = new CompaniesDBDAO();
 		CustomersDAO customersDAO = new CustomersDBDAO();
@@ -24,11 +27,23 @@ public class CustomerTest {
 
 		TestUtils.DoubleSeparatedLine();
 		TestUtils.customerFacade();
-		
+
 		try {
-			
-		} catch (Exception e) {
-			// TODO: handle exception
+
+			TestUtils.testSeparatedLine("Going to test GOOD customerFacade.login:");
+			customerUser = (CustomerFacade) LoginManager.getInstance().login("CustomerNum2@gmail.com", "2222",
+					ClientType.CUSTOMER);
+
+//			TestUtils.testSeparatedLine("Going to print *BAD* *Email* for customerFacade.login:");
+//			customerUser = (CustomerFacade) LoginManager.getInstance().login("BADcustomer@BADcustomer.com", "2222",
+//					ClientType.CUSTOMER);
+//
+//			TestUtils.testSeparatedLine("Going to print *BAD* *Password* for customerFacade.login:");
+//			customerUser = (CustomerFacade) LoginManager.getInstance().login("CustomerNum2@gmail.com", "BADcustomer",
+//					ClientType.CUSTOMER);
+
+		} catch (LogException e) {
+			System.err.println(e.getMessage());
 		}
 	}
 }
