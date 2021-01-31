@@ -34,11 +34,11 @@ public class AdminTest {
 			adminUser = (AdminFacade) LoginManager.getInstance().login("admin@admin.com", "admin",
 					ClientType.ADMINISTRATOR);
 
-//			TestUtils.testSeparatedLine("Going to print *BAD* *Name* for adminFacade.login:");
+//			TestUtils.testSeparatedLine("Going to print *BAD* *Email* for adminFacade.login:");
 //			adminUser = (AdminFacade) LoginManager.getInstance().login("BADadmin@BADadmin.com", "admin",
 //					ClientType.ADMINISTRATOR);
 //
-//			TestUtils.testSeparatedLine("Going to print *BAD* *Email* for adminFacade.login:");
+//			TestUtils.testSeparatedLine("Going to print *BAD* *Password* for adminFacade.login:");
 //			adminUser = (AdminFacade) LoginManager.getInstance().login("admin@admin.com", "BADadmin",
 //					ClientType.ADMINISTRATOR);
 

@@ -32,6 +32,7 @@ public class MainTest {
 
 //		STEP N.4 - The Real Thing:
 		AdminTest.adminTest();
+		CompanyTest.companyTest();
 //		...   ...   ... need to testAll(); over here.
 		
 //		------------------------------------------------------------------------------------------------------------

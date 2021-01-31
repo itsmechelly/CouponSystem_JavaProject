@@ -8,14 +8,17 @@ import com.couponsystem.dbdao.CategoryDBDAO;
 import com.couponsystem.dbdao.CompaniesDBDAO;
 import com.couponsystem.dbdao.CouponsDBDAO;
 import com.couponsystem.dbdao.CustomersDBDAO;
+import com.couponsystem.exceptions.LogException;
 import com.couponsystem.facade.CompanyFacade;
+import com.couponsystem.security.ClientType;
+import com.couponsystem.security.LoginManager;
 import com.couponsystem.utils.TestUtils;
 
 public class CompanyTest {
 
 	public static void companyTest() {
 
-		CompanyFacade companyFacade = new CompanyFacade();
+		CompanyFacade companyUser = new CompanyFacade();
 
 		CompaniesDAO companiesDAO = new CompaniesDBDAO();
 		CustomersDAO customersDAO = new CustomersDBDAO();
@@ -27,8 +30,31 @@ public class CompanyTest {
 
 		try {
 
+			categoryDAO.addCategory(1, "FOOD");
+			categoryDAO.addCategory(2, "ELECTRICITY");
+			categoryDAO.addCategory(3, "RESTAURANT");
+			categoryDAO.addCategory(4, "VACATION");
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.getMessage();
+			e.printStackTrace();
+		}
+
+		try {
+
+			TestUtils.testSeparatedLine("Going to test GOOD companyFacade.login:");
+			companyUser = (CompanyFacade) LoginManager.getInstance().login("CompanyNum2@gmail.com", "2222",
+					ClientType.COMPANY);
+
+//			TestUtils.testSeparatedLine("Going to print *BAD* *Email* for companyFacade.login:");
+//			companyUser = (CompanyFacade) LoginManager.getInstance().login("BADcompany@BADcompany.com", "2222",
+//					ClientType.COMPANY);
+//			
+//			TestUtils.testSeparatedLine("Going to print *BAD* *Password* for companyFacade.login:");
+//			companyUser = (CompanyFacade) LoginManager.getInstance().login("CompanyNum2@gmail.com", "BADcompany",
+//					ClientType.COMPANY);
+			
+		} catch (LogException e) {
+			System.err.println(e.getMessage());
 		}
 	}
 }

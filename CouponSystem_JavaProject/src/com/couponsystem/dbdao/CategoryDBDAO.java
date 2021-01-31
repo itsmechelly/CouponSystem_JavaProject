@@ -25,7 +25,7 @@ public class CategoryDBDAO implements CategoryDAO {
 			PreparedStatement statement = connection.prepareStatement(sql);
 			statement.setInt(1, id);
 			statement.setNString(2, category);
-			statement.executeQuery();
+			statement.executeUpdate();
 
 		} catch (Exception e) {
 			e.printStackTrace();
