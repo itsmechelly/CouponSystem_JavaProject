@@ -38,6 +38,8 @@ public class CompanyTest {
 			e.getMessage();
 		}
 
+//		------------------------------------------------------------------------------------------------------------
+
 		try {
 
 			TestUtils.testSeparatedLine("Going to test GOOD companyFacade.login:");
@@ -55,5 +57,8 @@ public class CompanyTest {
 		} catch (LogException e) {
 			System.err.println(e.getMessage());
 		}
+		
+//		------------------------------------------------------------------------------------------------------------
+
 	}
 }

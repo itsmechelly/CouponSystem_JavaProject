@@ -28,6 +28,8 @@ public class AdminTest {
 		TestUtils.DoubleSeparatedLine();
 		TestUtils.adminFacade();
 
+//		------------------------------------------------------------------------------------------------------------
+
 		try {
 
 			TestUtils.testSeparatedLine("Going to test GOOD adminFacade.login:");
@@ -45,6 +47,8 @@ public class AdminTest {
 		} catch (LogException e) {
 			System.err.println(e.getMessage());
 		}
+		
+//		------------------------------------------------------------------------------------------------------------
 
 	}
 }

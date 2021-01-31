@@ -27,6 +27,8 @@ public class CustomerTest {
 
 		TestUtils.DoubleSeparatedLine();
 		TestUtils.customerFacade();
+		
+//		------------------------------------------------------------------------------------------------------------
 
 		try {
 
@@ -45,5 +47,8 @@ public class CustomerTest {
 		} catch (LogException e) {
 			System.err.println(e.getMessage());
 		}
+		
+//		------------------------------------------------------------------------------------------------------------
+
 	}
 }
