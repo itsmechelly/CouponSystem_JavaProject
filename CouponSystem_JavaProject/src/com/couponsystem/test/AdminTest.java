@@ -168,8 +168,11 @@ public class AdminTest {
 		TestUtils.testSeparatedLine("Testing Admin Facade - getOneCompany:");
 		System.out.println(adminUser.getOneCompany(3));
 		
+		TestUtils.testSeparatedLine("Testing Admin Facade - getAllCompanies:");
+		TestUtils.printCompaniesTable(companiesDAO.getAllCompanies());
 		
-		
+//		------------------------------------------------------------------------------------------------------------
+
 		
 		
 		

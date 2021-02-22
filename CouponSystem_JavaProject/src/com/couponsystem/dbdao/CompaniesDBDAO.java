@@ -157,7 +157,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
 		}
-		return null;
+		return companies;
 	}
 
 	@Override
