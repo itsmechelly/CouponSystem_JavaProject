@@ -145,9 +145,9 @@ public class AdminTest {
 
 		System.out.println();
 		System.out.println("Going to test updateCompany exception - updating *Company name* is not allowed:");
-			com3FromDB.setName("Company8");
-//			com3FromDB.setName("Company3");
-		
+		com3FromDB.setName("Company8");
+//		com3FromDB.setName("Company3");
+//		
 //		System.out.println();
 //		System.out.println("Going to test updateCompany exception - updating *Company id* is not allowed:");
 //		com3FromDB.setId(3);
@@ -162,15 +162,11 @@ public class AdminTest {
 		
 		TestUtils.testSeparatedLine("Testing Admin Facade - deleteCompany:");
 		System.out.println("Going to delete Company4:");
-		
-		try {
-			adminUser.deleteCompany(4);
-			System.out.println("Deleted successfully: Company4.");
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-		}
-		
-
+		adminUser.deleteCompany(4);
+		System.out.println("Deleted successfully: Company4.");
+			
+		TestUtils.testSeparatedLine("Testing Admin Facade - getOneCompany:");
+		System.out.println(adminUser.getOneCompany(3));
 		
 		
 		
