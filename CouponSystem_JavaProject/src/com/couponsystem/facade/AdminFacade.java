@@ -25,31 +25,25 @@ public class AdminFacade extends ClientFacade {
 
 	public void addCompany(Company company) throws AlreadyExistException {
 
-		List<Company> companies = companiesDAO.getAllCompanies();
-
-		for (Company comp : companies) {
-			if (comp.getName().equals(company.getName())) {
-				throw new AlreadyExistException("Company name ", company.getName());
-			}
-			if (comp.getEmail().equalsIgnoreCase(company.getEmail())) {
-				throw new AlreadyExistException("Company email ", company.getEmail());
-			}
+		if (companiesDAO.isCompanyNameExists(company.getName())) {
+			throw new AlreadyExistException("Company name ", company.getName());
+		}
+		if (companiesDAO.isCompanyEmailExists(company.getEmail())) {
+			throw new AlreadyExistException("Company email ", company.getEmail());
 		}
 		companiesDAO.addCompany(company);
 	}
 
-	public void updateCompany(int companyID, Company company) throws NotAllowedException, AlreadyExistException {
+	public void updateCompany(int companyID, Company company) throws NotAllowedException {
 
 		Company comp = companiesDAO.getOneCompany(companyID);
 
 		if (comp.getId() != company.getId()) {
 			throw new NotAllowedException("update company id number.");
 		}
-
 		if (!comp.getName().equals(company.getName())) {
 			throw new NotAllowedException("update company name.");
 		}
-
 		companiesDAO.updateCompany(company);
 	}
 

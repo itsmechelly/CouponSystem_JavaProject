@@ -20,6 +20,9 @@ public class CompaniesDBDAO implements CompaniesDAO {
 	private static final String GET_ONE_COMPANY_QUERY = "SELECT * FROM `coupon_system`.`companies` WHERE (`id` = ?);";
 	private static final String GET_ALL_COMPANIES_QUERY = "SELECT * FROM `coupon_system`.`companies`;";
 	private static final String IS_COMPANY_EXISTS_QUERY = "SELECT * FROM coupon_system.companies WHERE `email` = ? AND `password` = ?;";
+	private static final String IS_COMPANY_NAME_EXISTS_QUERY = "SELECT `name` FROM coupon_system.companies WHERE `name` = ?;";
+	private static final String IS_COMPANY_EMAIL_EXISTS_QUERY = "SELECT `email` FROM coupon_system.companies WHERE `email` = ?;";
+
 	private static final String GET_COMPANY_ID_BY_EMAIL_AND_PASSWORD_QUERY = "SELECT `id` FROM coupon_system.companies WHERE `email` = ? AND `password` = ?;";
 
 	@Override
@@ -186,6 +189,66 @@ public class CompaniesDBDAO implements CompaniesDAO {
 	}
 
 	/**
+	 * This method has been used in adminFacade.addCompany method.
+	 */
+	@Override
+	public boolean isCompanyNameExists(String companyName) {
+		
+		try {
+			connection = ConnectionPool.getInstance().getConnection();
+
+			String sql = IS_COMPANY_NAME_EXISTS_QUERY;
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+
+			statement.setString(1, companyName);
+
+			ResultSet resultSet = statement.executeQuery();
+
+			if (resultSet.next()) {
+				return true;
+			}
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionPool.getInstance().returnConnection(connection);
+			connection = null;
+		}
+		return false;
+	}
+	
+	/**
+	 * This method has been used in adminFacade.addCompany method.
+	 */
+	@Override
+	public boolean isCompanyEmailExists(String companyEmail) {
+
+		try {
+			connection = ConnectionPool.getInstance().getConnection();
+
+			String sql = IS_COMPANY_EMAIL_EXISTS_QUERY;
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+
+			statement.setString(1, companyEmail);
+
+			ResultSet resultSet = statement.executeQuery();
+
+			if (resultSet.next()) {
+				return true;
+			}
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionPool.getInstance().returnConnection(connection);
+			connection = null;
+		}
+		return false;
+	}
+	
+	/**
 	 * This method has been used in companyFacade.getCompanyIdByEmailAndPasswordForLogin method.
 	 */
 	@Override
@@ -217,4 +280,5 @@ public class CompaniesDBDAO implements CompaniesDAO {
 		}
 		return id;
 	}
+
 }
