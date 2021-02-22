@@ -173,7 +173,8 @@ public class AdminTest {
 		
 //		------------------------------------------------------------------------------------------------------------
 
-		
+		TestUtils.testSeparatedLine("Testing Admin Facade - addCustomer:");
+
 		
 		
 		
