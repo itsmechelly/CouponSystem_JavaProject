@@ -2,13 +2,9 @@ package com.couponsystem.test;
 
 import com.couponsystem.beans.Company;
 import com.couponsystem.beans.Customer;
-import com.couponsystem.dao.CategoryDAO;
 import com.couponsystem.dao.CompaniesDAO;
-import com.couponsystem.dao.CouponsDAO;
 import com.couponsystem.dao.CustomersDAO;
-import com.couponsystem.dbdao.CategoryDBDAO;
 import com.couponsystem.dbdao.CompaniesDBDAO;
-import com.couponsystem.dbdao.CouponsDBDAO;
 import com.couponsystem.dbdao.CustomersDBDAO;
 import com.couponsystem.exceptions.AlreadyExistException;
 import com.couponsystem.exceptions.LogException;
@@ -22,12 +18,8 @@ public class AdminTest {
 
 	public static void adminTest() {
 
-		AdminFacade adminUser = null;
-
 		CompaniesDAO companiesDAO = new CompaniesDBDAO();
 		CustomersDAO customersDAO = new CustomersDBDAO();
-		CouponsDAO couponsDAO = new CouponsDBDAO();
-		CategoryDAO categoryDAO = new CategoryDBDAO();
 
 		TestUtils.DoubleSeparatedLine();
 		TestUtils.adminFacade();
@@ -35,20 +27,27 @@ public class AdminTest {
 //		------------------------------------------------------------------------------------------------------------
 
 		TestUtils.testSeparatedLine("Going to test GOOD adminFacade.login:");
+		AdminFacade adminUser = null;
 
 		try {
+			TestUtils.testSeparatedLine("Going to test login exception - *WRONG* *Email* for adminFacade.login:");
+			adminUser = (AdminFacade) LoginManager.getInstance().login("BADadmin@BADadmin.com", "admin",
+					ClientType.ADMINISTRATOR);
+		} catch (LogException e) {
+			System.err.println(e.getMessage());
+		}
 
+		try {
+			TestUtils.testSeparatedLine("Going to test login exception - *WRONG* *Password* for adminFacade.login:");
+			adminUser = (AdminFacade) LoginManager.getInstance().login("admin@admin.com", "BADadmin",
+					ClientType.ADMINISTRATOR);
+		} catch (LogException e) {
+			System.err.println(e.getMessage());
+		}
+
+		try {
 			adminUser = (AdminFacade) LoginManager.getInstance().login("admin@admin.com", "admin",
 					ClientType.ADMINISTRATOR);
-
-//			TestUtils.testSeparatedLine("Going to print *BAD* *Email* for adminFacade.login:");
-//			adminUser = (AdminFacade) LoginManager.getInstance().login("BADadmin@BADadmin.com", "admin",
-//					ClientType.ADMINISTRATOR);
-//
-//			TestUtils.testSeparatedLine("Going to print *BAD* *Password* for adminFacade.login:");
-//			adminUser = (AdminFacade) LoginManager.getInstance().login("admin@admin.com", "BADadmin",
-//					ClientType.ADMINISTRATOR);
-
 		} catch (LogException e) {
 			System.err.println(e.getMessage());
 		}
@@ -238,13 +237,15 @@ public class AdminTest {
 		} catch (AlreadyExistException e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 		TestUtils.testSeparatedLine("Testing Admin Facade - updateCustomer:");
 		System.out.println("Going to update Customer3 email & password:");
 
 		Customer custFromDB = adminUser.getOneCustomer(3);
 		custFromDB.setEmail("Customer3@email.com");
 		custFromDB.setPassword("3333");
+
+//		System.out.println("Going to test updateCustomer exception - updating *Customer id* is not allowed:");
 //		custFromDB.setId(77);
 
 		try {
@@ -253,7 +254,7 @@ public class AdminTest {
 		} catch (NotAllowedException e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 		TestUtils.testSeparatedLine("Testing Admin Facade - deleteCustomer:");
 		System.out.println("Going to delete Customer5:");
 		adminUser.deleteCustomer(5);
