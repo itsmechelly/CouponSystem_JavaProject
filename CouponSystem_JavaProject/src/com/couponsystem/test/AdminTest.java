@@ -91,7 +91,7 @@ public class AdminTest {
 			adminUser.addCompany(com5);
 			System.out.println("Added successfully: Company1, Company2, Company3, Company4, Company5.");
 		} catch (AlreadyExistException e) {
-			System.err.println(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 
 		System.out.println();
