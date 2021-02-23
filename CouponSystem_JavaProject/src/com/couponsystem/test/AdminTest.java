@@ -19,30 +19,33 @@ public class AdminTest {
 
 //		------------------------------------------------------------------------------------------------------------
 
-		TestUtils.testSeparatedLine("Going to test GOOD adminFacade.login:");
+		TestUtils.testSeparatedLine("Testing Admin Facade - login:");
 		AdminFacade adminUser = null;
 
 		try {
-			TestUtils.testSeparatedLine("Going to test login exception - *WRONG* *Email* for adminFacade.login:");
+			System.out.println("Going to test login exception - *WRONG* *Email* for adminFacade.login:");
 			adminUser = (AdminFacade) LoginManager.getInstance().login("BADadmin@BADadmin.com", "admin",
 					ClientType.ADMINISTRATOR);
 		} catch (LogException e) {
-			System.err.println(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 
 		try {
-			TestUtils.testSeparatedLine("Going to test login exception - *WRONG* *Password* for adminFacade.login:");
+			System.out.println();
+			System.out.println("Going to test login exception - *WRONG* *Password* for adminFacade.login:");
 			adminUser = (AdminFacade) LoginManager.getInstance().login("admin@admin.com", "BADadmin",
 					ClientType.ADMINISTRATOR);
 		} catch (LogException e) {
-			System.err.println(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 
 		try {
+			System.out.println();
+			System.out.println("Going to test GOOD adminFacade.login:");
 			adminUser = (AdminFacade) LoginManager.getInstance().login("admin@admin.com", "admin",
 					ClientType.ADMINISTRATOR);
 		} catch (LogException e) {
-			System.err.println(e.getMessage());
+			System.out.println(e.getMessage());
 		}
 
 //		------------------------------------------------------------------------------------------------------------

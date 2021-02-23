@@ -18,7 +18,6 @@ public class CompanyTest {
 
 	public static void companyTest() {
 
-		CompanyFacade companyUser = new CompanyFacade();
 
 		CompaniesDAO companiesDAO = new CompaniesDBDAO();
 		CustomersDAO customersDAO = new CustomersDBDAO();
@@ -27,9 +26,10 @@ public class CompanyTest {
 
 		TestUtils.DoubleSeparatedLine();
 		TestUtils.companyFacade();
+		
+//		------------------------------------------------------------------------------------------------------------
 
 		try {
-
 			categoryDAO.addCategory(1, "FOOD");
 			categoryDAO.addCategory(2, "ELECTRICITY");
 			categoryDAO.addCategory(3, "RESTAURANT");
@@ -40,22 +40,33 @@ public class CompanyTest {
 
 //		------------------------------------------------------------------------------------------------------------
 
+		TestUtils.testSeparatedLine("Testing Company Facade - login:");
+		CompanyFacade companyUser = new CompanyFacade();
+
 		try {
-
-			TestUtils.testSeparatedLine("Going to test GOOD companyFacade.login:");
-			companyUser = (CompanyFacade) LoginManager.getInstance().login("CompanyNum2@gmail.com", "2222",
+			System.out.println("Going to test login exception - *WRONG* *Email* for companyFacade.login:");
+			companyUser = (CompanyFacade) LoginManager.getInstance().login("BADcompany@email.com", "2222",
 					ClientType.COMPANY);
-
-//			TestUtils.testSeparatedLine("Going to print *BAD* *Email* for companyFacade.login:");
-//			companyUser = (CompanyFacade) LoginManager.getInstance().login("BADcompany@BADcompany.com", "2222",
-//					ClientType.COMPANY);
-//			
-//			TestUtils.testSeparatedLine("Going to print *BAD* *Password* for companyFacade.login:");
-//			companyUser = (CompanyFacade) LoginManager.getInstance().login("CompanyNum2@gmail.com", "BADcompany",
-//					ClientType.COMPANY);
-			
 		} catch (LogException e) {
-			System.err.println(e.getMessage());
+			System.out.println(e.getMessage());
+		}
+		
+		try {
+			System.out.println();
+			System.out.println("Going to test login exception - *WRONG* *Password* for companyFacade.login:");
+			companyUser = (CompanyFacade) LoginManager.getInstance().login("Company2@email.com", "BADcompany",
+					ClientType.COMPANY);
+		} catch (LogException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		try {
+			System.out.println();
+			System.out.println("Going to test GOOD companyFacade.login:");
+			companyUser = (CompanyFacade) LoginManager.getInstance().login("Company2@email.com", "2222",
+					ClientType.COMPANY);			
+		} catch (LogException e) {
+			System.out.println(e.getMessage());
 		}
 		
 //		------------------------------------------------------------------------------------------------------------
