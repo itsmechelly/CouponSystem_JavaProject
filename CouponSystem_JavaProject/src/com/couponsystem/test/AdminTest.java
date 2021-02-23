@@ -238,7 +238,22 @@ public class AdminTest {
 		} catch (AlreadyExistException e) {
 			System.out.println(e.getMessage());
 		}
+		
+		TestUtils.testSeparatedLine("Testing Admin Facade - updateCustomer:");
+		System.out.println("Going to update Customer3 email & password:");
 
+		Customer custFromDB = adminUser.getOneCustomer(3);
+		custFromDB.setEmail("Customer3@email.com");
+		custFromDB.setPassword("3333");
+//		custFromDB.setId(77);
+
+		try {
+			adminUser.updateCustomer(3, custFromDB);
+			System.out.println("Updated successfully: Customer3.");
+		} catch (NotAllowedException e) {
+			System.out.println(e.getMessage());
+		}
+		
 		TestUtils.testSeparatedLine("Testing Admin Facade - deleteCustomer:");
 		System.out.println("Going to delete Customer5:");
 		adminUser.deleteCustomer(5);
