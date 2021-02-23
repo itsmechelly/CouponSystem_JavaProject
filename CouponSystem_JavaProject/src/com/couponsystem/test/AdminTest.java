@@ -2,10 +2,6 @@ package com.couponsystem.test;
 
 import com.couponsystem.beans.Company;
 import com.couponsystem.beans.Customer;
-import com.couponsystem.dao.CompaniesDAO;
-import com.couponsystem.dao.CustomersDAO;
-import com.couponsystem.dbdao.CompaniesDBDAO;
-import com.couponsystem.dbdao.CustomersDBDAO;
 import com.couponsystem.exceptions.AlreadyExistException;
 import com.couponsystem.exceptions.LogException;
 import com.couponsystem.exceptions.NotAllowedException;
@@ -17,9 +13,6 @@ import com.couponsystem.utils.TestUtils;
 public class AdminTest {
 
 	public static void adminTest() {
-
-		CompaniesDAO companiesDAO = new CompaniesDBDAO();
-		CustomersDAO customersDAO = new CustomersDBDAO();
 
 		TestUtils.DoubleSeparatedLine();
 		TestUtils.adminFacade();
@@ -169,7 +162,7 @@ public class AdminTest {
 		System.out.println(adminUser.getOneCompany(3));
 
 		TestUtils.testSeparatedLine("Testing Admin Facade - getAllCompanies:");
-		TestUtils.printCompaniesTable(companiesDAO.getAllCompanies());
+		TestUtils.printCompaniesTable(adminUser.getAllCompanies());
 
 //		------------------------------------------------------------------------------------------------------------
 
@@ -264,7 +257,7 @@ public class AdminTest {
 		System.out.println(adminUser.getOneCustomer(3));
 
 		TestUtils.testSeparatedLine("Testing Admin Facade - getAllCustomers:");
-		TestUtils.printCustomersTable(customersDAO.getAllCustomers());
+		TestUtils.printCustomersTable(adminUser.getAllCustomers());
 
 	}
 }
