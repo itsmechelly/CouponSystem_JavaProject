@@ -191,32 +191,6 @@ public class CompanyTest {
 			System.out.println(e.getMessage());
 		}
 
-//		TODO -> ??? Need to change the database syntax so the communication will be persistence.
-//		Should I even need to test it? should I delete if from the business logic?
-//		System.out.println();
-//		System.out.println("Going to test updateCompanyCoupon exception - updating *Coupon Id* is not allowed::");
-//
-//		Coupon couFromDB1 = couponsDAO.getOneCoupon(1);
-//		couFromDB1.setId(2);
-//
-//		try {
-//			companyUser.updateCompanyCoupon(couFromDB1);
-//		} catch (NotAllowedException e) {
-//			System.out.println(e.getMessage());
-//		} catch (PurchaseCouponException e) {
-//			System.out.println(e.getMessage());
-//		}
-//
-//		System.out.println();
-//		System.out.println("Going to test updateCompanyCoupon exception - updating *Company Id* is not allowed::");
-//		couFromDB2.setCompanyId(4);
-//
-//		try {
-//			companyUser.updateCompanyCoupon(couFromDB1);
-//		} catch (NotAllowedException e) {
-//			System.out.println(e.getMessage());
-//		}
-
 		TestUtils.testSeparatedLine("Testing Company Facade - deleteCompanyCoupon:");
 		System.out.println("Going to delete Coupon6 that belongs to Company2:");
 
