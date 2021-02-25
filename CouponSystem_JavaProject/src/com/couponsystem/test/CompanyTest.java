@@ -15,6 +15,7 @@ import com.couponsystem.dbdao.CustomersDBDAO;
 import com.couponsystem.exceptions.AlreadyExistException;
 import com.couponsystem.exceptions.LogException;
 import com.couponsystem.exceptions.NotAllowedException;
+import com.couponsystem.exceptions.PurchaseCouponException;
 import com.couponsystem.facade.CompanyFacade;
 import com.couponsystem.security.ClientType;
 import com.couponsystem.security.LoginManager;
@@ -24,8 +25,6 @@ public class CompanyTest {
 
 	public static void companyTest() {
 
-		CompaniesDAO companiesDAO = new CompaniesDBDAO();
-		CustomersDAO customersDAO = new CustomersDBDAO();
 		CouponsDAO couponsDAO = new CouponsDBDAO();
 		CategoryDAO categoryDAO = new CategoryDBDAO();
 
@@ -177,28 +176,34 @@ public class CompanyTest {
 			System.out.println(e.getMessage());
 		}
 
-//		TestUtils.testSeparatedLine("Testing Company Facade - updateCompanyCoupon:");
-//		System.out.println("Going to update - Coupon2:");
-//
-//		Coupon couFromDB2 = couponsDAO.getOneCoupon(2);
-//		couFromDB2.setDescription("20% Discount for All");
-//
-//		try {
-//			companyUser.updateCompanyCoupon(couFromDB2);
-//			System.out.println("Updated successfully: Company2.");
-//		} catch (NotAllowedException e) {
-//			System.out.println(e.getMessage());
-//		}
-//
+		TestUtils.testSeparatedLine("Testing Company Facade - updateCompanyCoupon:");
+		System.out.println("Going to update - Coupon2:");
+
+		Coupon couFromDB2 = couponsDAO.getOneCoupon(2);
+		couFromDB2.setDescription("20% Discount for All");
+
+		try {
+			companyUser.updateCompanyCoupon(couFromDB2);
+			System.out.println("Updated successfully: Company2.");
+		} catch (NotAllowedException e) {
+			System.out.println(e.getMessage());
+		} catch (PurchaseCouponException e) {
+			System.out.println(e.getMessage());
+		}
+
+//		TODO -> ??? Need to change the database syntax so the communication will be persistence.
+//		Should I even need to test it? should I delete if from the business logic?
 //		System.out.println();
 //		System.out.println("Going to test updateCompanyCoupon exception - updating *Coupon Id* is not allowed::");
 //
 //		Coupon couFromDB1 = couponsDAO.getOneCoupon(1);
-//		couFromDB2.setId(2);
+//		couFromDB1.setId(2);
 //
 //		try {
 //			companyUser.updateCompanyCoupon(couFromDB1);
 //		} catch (NotAllowedException e) {
+//			System.out.println(e.getMessage());
+//		} catch (PurchaseCouponException e) {
 //			System.out.println(e.getMessage());
 //		}
 //
