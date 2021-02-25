@@ -45,7 +45,7 @@ public class CompanyTest {
 //		------------------------------------------------------------------------------------------------------------
 
 		TestUtils.testSeparatedLine("Testing Company Facade - login:");
-		CompanyFacade companyUser = new CompanyFacade();
+		CompanyFacade companyUser = null;
 
 		try {
 			System.out.println("Going to test login exception - *WRONG* *Email* for companyFacade.login:");
