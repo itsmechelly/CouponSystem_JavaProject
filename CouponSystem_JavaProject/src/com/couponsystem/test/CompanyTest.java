@@ -84,7 +84,7 @@ public class CompanyTest {
 		cou1.setTitle("Title1");
 		cou1.setDescription("10% Discount for All");
 		cou1.setStartDate(new Date(2026, 06, 30));
-		cou1.setEndDate(new Date(2026, 07, 06));
+		cou1.setEndDate(new Date(2020, 07, 06));
 		cou1.setAmount(100);
 		cou1.setPrice(1000);
 		cou1.setImage("www.image1.com");
