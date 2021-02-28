@@ -9,7 +9,6 @@ import com.couponsystem.beans.Coupon;
 import com.couponsystem.exceptions.AlreadyExistException;
 import com.couponsystem.exceptions.CouponSystemException;
 import com.couponsystem.exceptions.NotAllowedException;
-import com.couponsystem.exceptions.PurchaseCouponException;
 
 public class CompanyFacade extends ClientFacade {
 
@@ -51,7 +50,7 @@ public class CompanyFacade extends ClientFacade {
 		couponsDAO.addCoupon(coupon);
 	}
 
-	public void updateCompanyCoupon(Coupon coupon) throws NotAllowedException, PurchaseCouponException {
+	public void updateCompanyCoupon(Coupon coupon) throws NotAllowedException {
 
 		Coupon coup = couponsDAO.getOneCoupon(coupon.getId());
 

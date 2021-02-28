@@ -8,7 +8,7 @@ import com.couponsystem.beans.Category;
 import com.couponsystem.beans.Coupon;
 import com.couponsystem.beans.Customer;
 import com.couponsystem.beans.CustomersVsCoupons;
-import com.couponsystem.exceptions.LogException;
+import com.couponsystem.exceptions.CouponSystemException;
 import com.couponsystem.exceptions.PurchaseCouponException;
 
 public class CustomerFacade extends ClientFacade {
@@ -26,7 +26,7 @@ public class CustomerFacade extends ClientFacade {
 //	------------------------------------------------------------------------------------------------------------
 
 	@Override
-	public boolean login(String email, String password) throws LogException {
+	public boolean login(String email, String password) {
 		if (customersDAO.isCustomerExist(email, password)) {
 			return true;
 		}
@@ -39,7 +39,7 @@ public class CustomerFacade extends ClientFacade {
 
 //	------------------------------------------------------------------------------------------------------------
 
-	public void purchaseCoupon(Coupon coupon) throws PurchaseCouponException {
+	public void purchaseCoupon(Coupon coupon) throws CouponSystemException {
 
 //		The customer can't purchase the coupon more then once:
 

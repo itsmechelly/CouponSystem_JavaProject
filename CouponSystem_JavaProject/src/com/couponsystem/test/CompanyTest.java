@@ -10,7 +10,6 @@ import com.couponsystem.dbdao.CategoryDBDAO;
 import com.couponsystem.dbdao.CouponsDBDAO;
 import com.couponsystem.exceptions.CouponSystemException;
 import com.couponsystem.exceptions.NotAllowedException;
-import com.couponsystem.exceptions.PurchaseCouponException;
 import com.couponsystem.facade.CompanyFacade;
 import com.couponsystem.security.ClientType;
 import com.couponsystem.security.LoginManager;
@@ -181,8 +180,6 @@ public class CompanyTest {
 			companyUser.updateCompanyCoupon(couFromDB2);
 			System.out.println("Updated successfully: Company2.");
 		} catch (NotAllowedException e) {
-			System.out.println(e.getMessage());
-		} catch (PurchaseCouponException e) {
 			System.out.println(e.getMessage());
 		}
 

@@ -5,7 +5,6 @@ import com.couponsystem.beans.Coupon;
 import com.couponsystem.dao.CouponsDAO;
 import com.couponsystem.dbdao.CouponsDBDAO;
 import com.couponsystem.exceptions.CouponSystemException;
-import com.couponsystem.exceptions.PurchaseCouponException;
 import com.couponsystem.facade.CustomerFacade;
 import com.couponsystem.security.ClientType;
 import com.couponsystem.security.LoginManager;
@@ -61,7 +60,7 @@ public class CustomerTest {
 		try {
 			customerUser.purchaseCoupon(couFromDB222);
 			customerUser.purchaseCoupon(couFromDB444);
-		} catch (PurchaseCouponException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 
@@ -71,7 +70,7 @@ public class CustomerTest {
 
 		try {
 			customerUser.purchaseCoupon(couFromDB444);
-		} catch (PurchaseCouponException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 
@@ -82,7 +81,7 @@ public class CustomerTest {
 
 		try {
 			customerUser.purchaseCoupon(couFromDB555);
-		} catch (PurchaseCouponException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 
@@ -93,7 +92,7 @@ public class CustomerTest {
 
 		try {
 			customerUser.purchaseCoupon(couFromDB11);
-		} catch (PurchaseCouponException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 
