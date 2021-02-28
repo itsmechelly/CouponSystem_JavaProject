@@ -1,6 +1,6 @@
 package com.couponsystem.beans;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Coupon {
 
@@ -9,8 +9,8 @@ public class Coupon {
 	private Category category;
 	private String title;
 	private String description;
-	private Date startDate;
-	private Date endDate;
+	private LocalDate startDate;
+	private LocalDate endDate;
 	private int amount;
 	private double price;
 	private String image;
@@ -59,19 +59,19 @@ public class Coupon {
 		this.description = description;
 	}
 
-	public Date getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
 

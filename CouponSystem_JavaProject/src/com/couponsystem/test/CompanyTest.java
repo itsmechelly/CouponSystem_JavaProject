@@ -1,6 +1,6 @@
 package com.couponsystem.test;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import com.couponsystem.beans.Category;
 import com.couponsystem.beans.Coupon;
@@ -76,8 +76,8 @@ public class CompanyTest {
 		cou1.setCategory(Category.values()[(0)]);
 		cou1.setTitle("Title1");
 		cou1.setDescription("10% Discount for All");
-		cou1.setStartDate(new Date(2026, 06, 30));
-		cou1.setEndDate(new Date(2020, 07, 06));
+		cou1.setStartDate(LocalDate.of(2026, 06, 30));
+		cou1.setEndDate(LocalDate.of(2020, 07, 06));
 		cou1.setAmount(100);
 		cou1.setPrice(1000);
 		cou1.setImage("www.image1.com");
@@ -87,8 +87,8 @@ public class CompanyTest {
 		cou2.setCategory(Category.values()[(1)]);
 		cou2.setTitle("Title2");
 		cou2.setDescription("Some description that going to be updated...");
-		cou2.setStartDate(new Date(2026, 06, 30));
-		cou2.setEndDate(new Date(2026, 07, 29));
+		cou2.setStartDate(LocalDate.of(2026, 06, 30));
+		cou2.setEndDate(LocalDate.of(2026, 07, 29));
 		cou2.setAmount(200);
 		cou2.setPrice(2000);
 		cou2.setImage("www.image2.com");
@@ -98,8 +98,8 @@ public class CompanyTest {
 		cou3.setCategory(Category.values()[(2)]);
 		cou3.setTitle("Title3");
 		cou3.setDescription("30% Discount for All");
-		cou3.setStartDate(new Date(2026, 06, 30));
-		cou3.setEndDate(new Date(2026, 07, 29));
+		cou3.setStartDate(LocalDate.of(2026, 06, 30));
+		cou3.setEndDate(LocalDate.of(2026, 07, 29));
 		cou3.setAmount(300);
 		cou3.setPrice(3000);
 		cou3.setImage("www.image3.com");
@@ -109,8 +109,8 @@ public class CompanyTest {
 		cou4.setCategory(Category.values()[(3)]);
 		cou4.setTitle("Title4");
 		cou4.setDescription("40% Discount for All");
-		cou4.setStartDate(new Date(2026, 06, 30));
-		cou4.setEndDate(new Date(2026, 07, 29));
+		cou4.setStartDate(LocalDate.of(2026, 06, 30));
+		cou4.setEndDate(LocalDate.of(2026, 07, 29));
 		cou4.setAmount(400);
 		cou4.setPrice(4000);
 		cou4.setImage("www.image4.com");
@@ -120,8 +120,8 @@ public class CompanyTest {
 		cou5.setCategory(Category.values()[(2)]);
 		cou5.setTitle("Title5");
 		cou5.setDescription("50% Discount for All");
-		cou5.setStartDate(new Date(2026, 06, 30));
-		cou5.setEndDate(new Date(2026, 07, 29));
+		cou5.setStartDate(LocalDate.of(2026, 06, 30));
+		cou5.setEndDate(LocalDate.of(2026, 07, 29));
 		cou5.setAmount(0);
 		cou5.setPrice(5000);
 		cou5.setImage("www.image5.com");
@@ -131,8 +131,8 @@ public class CompanyTest {
 		cou6.setCategory(Category.values()[(3)]);
 		cou6.setTitle("Title6");
 		cou6.setDescription("60% Discount for All");
-		cou6.setStartDate(new Date(2026, 06, 30));
-		cou6.setEndDate(new Date(2026, 07, 29));
+		cou6.setStartDate(LocalDate.of(2026, 06, 30));
+		cou6.setEndDate(LocalDate.of(2026, 07, 29));
 		cou6.setAmount(600);
 		cou6.setPrice(6000);
 		cou6.setImage("www.image6.com");
@@ -157,8 +157,8 @@ public class CompanyTest {
 		cou7.setCategory(Category.values()[(1)]);
 		cou7.setTitle("Title2");
 		cou7.setDescription("70% Discount for All");
-		cou7.setStartDate(new Date(2026, 06, 30));
-		cou7.setEndDate(new Date(2026, 07, 29));
+		cou7.setStartDate(LocalDate.of(2026, 06, 30));
+		cou7.setEndDate(LocalDate.of(2026, 07, 29));
 		cou7.setAmount(700);
 		cou7.setPrice(7000);
 		cou7.setImage("www.image7.com");

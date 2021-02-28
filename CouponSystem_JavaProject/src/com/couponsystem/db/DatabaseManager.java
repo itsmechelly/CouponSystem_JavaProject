@@ -7,8 +7,9 @@ public abstract class DatabaseManager {
 	
 	private static final String url = "jdbc:mysql://localhost:3306"
 									+ "?createDatabaseIfNotExist=TRUE&"
-									+ "useTimezone&"
-									+ "serverTimezone=UTC";
+									+ "serverTimezone=Israel";
+//									+ "useTimezone&"
+//									+ "serverTimezone=UTC";
 	private static String username = "root";
 	private static String password = "1234";
 	

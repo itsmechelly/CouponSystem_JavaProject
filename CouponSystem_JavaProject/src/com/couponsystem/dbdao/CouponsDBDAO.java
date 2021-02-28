@@ -12,7 +12,6 @@ import com.couponsystem.beans.Coupon;
 import com.couponsystem.beans.CustomersVsCoupons;
 import com.couponsystem.dao.CouponsDAO;
 import com.couponsystem.db.ConnectionPool;
-import com.couponsystem.utils.DateUtils;
 
 public class CouponsDBDAO implements CouponsDAO {
 
@@ -45,8 +44,8 @@ public class CouponsDBDAO implements CouponsDAO {
 			statement.setInt(2, coupon.getCategory().ordinal() + 1);
 			statement.setString(3, coupon.getTitle());
 			statement.setString(4, coupon.getDescription());
-			statement.setDate(5, DateUtils.convertJavaUtilDateToSqlUtilDate(coupon.getStartDate()));
-			statement.setDate(6, DateUtils.convertJavaUtilDateToSqlUtilDate(coupon.getEndDate()));
+			statement.setDate(5, Date.valueOf(coupon.getStartDate()));
+			statement.setDate(6, Date.valueOf(coupon.getEndDate()));
 			statement.setInt(7, coupon.getAmount());
 			statement.setDouble(8, coupon.getPrice());
 			statement.setString(9, coupon.getImage());
@@ -75,8 +74,8 @@ public class CouponsDBDAO implements CouponsDAO {
 			statement.setInt(2, coupon.getCategory().ordinal() + 1);
 			statement.setString(3, coupon.getTitle());
 			statement.setString(4, coupon.getDescription());
-			statement.setDate(5, (Date) coupon.getStartDate());
-			statement.setDate(6, (Date) coupon.getEndDate());
+			statement.setDate(5, Date.valueOf(coupon.getStartDate()));
+			statement.setDate(6, Date.valueOf(coupon.getEndDate()));
 			statement.setInt(7, coupon.getAmount());
 			statement.setDouble(8, coupon.getPrice());
 			statement.setString(9, coupon.getImage());
@@ -135,8 +134,8 @@ public class CouponsDBDAO implements CouponsDAO {
 				coupon.setCategory(Category.values()[resultSet.getInt(3) - 1]);
 				coupon.setTitle(resultSet.getString(4));
 				coupon.setDescription(resultSet.getString(5));
-				coupon.setStartDate(resultSet.getDate(6));
-				coupon.setEndDate(resultSet.getDate(7));
+				coupon.setStartDate(resultSet.getDate(6).toLocalDate());
+				coupon.setEndDate(resultSet.getDate(7).toLocalDate());
 				coupon.setAmount(resultSet.getInt(8));
 				coupon.setPrice(resultSet.getDouble(9));
 				coupon.setImage(resultSet.getString(10));
@@ -173,8 +172,8 @@ public class CouponsDBDAO implements CouponsDAO {
 				coupon.setCategory(Category.values()[resultSet.getInt(3) - 1]);
 				coupon.setTitle(resultSet.getString(4));
 				coupon.setDescription(resultSet.getString(5));
-				coupon.setStartDate(resultSet.getDate(6));
-				coupon.setEndDate(resultSet.getDate(7));
+				coupon.setStartDate(resultSet.getDate(6).toLocalDate());
+				coupon.setEndDate(resultSet.getDate(7).toLocalDate());
 				coupon.setAmount(resultSet.getInt(8));
 				coupon.setPrice(resultSet.getDouble(9));
 				coupon.setImage(resultSet.getString(10));
@@ -322,14 +321,14 @@ public class CouponsDBDAO implements CouponsDAO {
 				coupon.setCategory(Category.values()[resultSet.getInt(3) - 1]);
 				coupon.setTitle(resultSet.getString(4));
 				coupon.setDescription(resultSet.getString(5));
-				coupon.setStartDate(resultSet.getDate(6));
-				coupon.setEndDate(resultSet.getDate(7));
+				coupon.setStartDate(resultSet.getDate(6).toLocalDate());
+				coupon.setEndDate(resultSet.getDate(7).toLocalDate());
 				coupon.setAmount(resultSet.getInt(8));
 				coupon.setPrice(resultSet.getDouble(9));
 				coupon.setImage(resultSet.getString(10));
 				coupons.add(coupon);
 			}
-			
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} finally {
@@ -362,13 +361,13 @@ public class CouponsDBDAO implements CouponsDAO {
 			while (resultSet.next()) {
 				nums.add(resultSet.getInt(1));
 			}
-			
+
 			for (int i = 0; i < nums.size(); i++) {
 
 				sql = GET_ONE_COUPON_QUERY;
 
 				statement = connection.prepareStatement(sql);
-				
+
 				statement.setInt(1, nums.get(i));
 
 				resultSet = statement.executeQuery();
@@ -380,8 +379,8 @@ public class CouponsDBDAO implements CouponsDAO {
 					coupon.setCategory(Category.values()[resultSet.getInt(3) - 1]);
 					coupon.setTitle(resultSet.getString(4));
 					coupon.setDescription(resultSet.getString(5));
-					coupon.setStartDate(resultSet.getDate(6));
-					coupon.setEndDate(resultSet.getDate(7));
+					coupon.setStartDate(resultSet.getDate(6).toLocalDate());
+					coupon.setEndDate(resultSet.getDate(7).toLocalDate());
 					coupon.setAmount(resultSet.getInt(8));
 					coupon.setPrice(resultSet.getDouble(9));
 					coupon.setImage(resultSet.getString(10));

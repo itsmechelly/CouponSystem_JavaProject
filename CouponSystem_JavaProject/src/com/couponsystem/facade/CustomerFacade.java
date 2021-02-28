@@ -62,7 +62,7 @@ public class CustomerFacade extends ClientFacade {
 
 //		The customer can't purchase the coupon if the coupon has expired:
 
-		if (couponFromDb.getEndDate().before(java.sql.Date.valueOf(LocalDate.now()))) {
+		if (couponFromDb.getEndDate().isBefore(LocalDate.now())) {
 			throw new PurchaseCouponException("This coupon has expired, you are welcome to choose another coupon.");
 		}
 
