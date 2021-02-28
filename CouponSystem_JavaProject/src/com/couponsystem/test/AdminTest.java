@@ -2,7 +2,6 @@ package com.couponsystem.test;
 
 import com.couponsystem.beans.Company;
 import com.couponsystem.beans.Customer;
-import com.couponsystem.exceptions.AlreadyExistException;
 import com.couponsystem.exceptions.CouponSystemException;
 import com.couponsystem.exceptions.NotAllowedException;
 import com.couponsystem.facade.AdminFacade;
@@ -90,7 +89,7 @@ public class AdminTest {
 			adminUser.addCompany(com4);
 			adminUser.addCompany(com5);
 			System.out.println("Added successfully: Company1, Company2, Company3, Company4, Company5.");
-		} catch (AlreadyExistException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 
@@ -105,7 +104,7 @@ public class AdminTest {
 
 		try {
 			adminUser.addCompany(com6);
-		} catch (AlreadyExistException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 
@@ -120,7 +119,7 @@ public class AdminTest {
 
 		try {
 			adminUser.addCompany(com7);
-		} catch (AlreadyExistException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 
@@ -214,7 +213,7 @@ public class AdminTest {
 			adminUser.addCustomer(cus4);
 			adminUser.addCustomer(cus5);
 			System.out.println("Added successfully: Customer1, Customer2, Customer3, Customer4, Customer5.");
-		} catch (AlreadyExistException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 
@@ -230,7 +229,7 @@ public class AdminTest {
 
 		try {
 			adminUser.addCustomer(cus6);
-		} catch (AlreadyExistException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 

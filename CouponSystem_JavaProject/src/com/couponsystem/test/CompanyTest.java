@@ -8,7 +8,6 @@ import com.couponsystem.dao.CategoryDAO;
 import com.couponsystem.dao.CouponsDAO;
 import com.couponsystem.dbdao.CategoryDBDAO;
 import com.couponsystem.dbdao.CouponsDBDAO;
-import com.couponsystem.exceptions.AlreadyExistException;
 import com.couponsystem.exceptions.CouponSystemException;
 import com.couponsystem.exceptions.NotAllowedException;
 import com.couponsystem.exceptions.PurchaseCouponException;
@@ -148,7 +147,7 @@ public class CompanyTest {
 			companyUser.addCompanyCoupon(cou5);
 			companyUser.addCompanyCoupon(cou6);
 			System.out.println("Added successfully: Coupon1, Coupon2, Coupon3, Coupon4, Coupon5, Coupon6.");
-		} catch (AlreadyExistException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 
@@ -168,7 +167,7 @@ public class CompanyTest {
 
 		try {
 			companyUser.addCompanyCoupon(cou7);
-		} catch (AlreadyExistException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 

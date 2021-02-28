@@ -6,6 +6,7 @@ import com.couponsystem.beans.Company;
 import com.couponsystem.beans.Coupon;
 import com.couponsystem.beans.Customer;
 import com.couponsystem.exceptions.AlreadyExistException;
+import com.couponsystem.exceptions.CouponSystemException;
 import com.couponsystem.exceptions.NotAllowedException;
 
 public class AdminFacade extends ClientFacade {
@@ -22,7 +23,7 @@ public class AdminFacade extends ClientFacade {
 
 //	------------------------------------------------------------------------------------------------------------
 
-	public void addCompany(Company company) throws AlreadyExistException {
+	public void addCompany(Company company) throws CouponSystemException {
 
 		if (companiesDAO.isCompanyNameExists(company.getName())) {
 			throw new AlreadyExistException("Company name ", company.getName());
@@ -74,7 +75,7 @@ public class AdminFacade extends ClientFacade {
 
 //	------------------------------------------------------------------------------------------------------------
 
-	public void addCustomer(Customer customer) throws AlreadyExistException {
+	public void addCustomer(Customer customer) throws CouponSystemException {
 
 		List<Customer> customers = customersDAO.getAllCustomers();
 

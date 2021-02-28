@@ -7,7 +7,7 @@ import com.couponsystem.beans.Category;
 import com.couponsystem.beans.Company;
 import com.couponsystem.beans.Coupon;
 import com.couponsystem.exceptions.AlreadyExistException;
-import com.couponsystem.exceptions.LogException;
+import com.couponsystem.exceptions.CouponSystemException;
 import com.couponsystem.exceptions.NotAllowedException;
 import com.couponsystem.exceptions.PurchaseCouponException;
 
@@ -26,7 +26,7 @@ public class CompanyFacade extends ClientFacade {
 //	------------------------------------------------------------------------------------------------------------
 
 	@Override
-	public boolean login(String email, String password) throws LogException {
+	public boolean login(String email, String password) {
 		if (companiesDAO.isCompanyExists(email, password)) {
 			return true;
 		}
@@ -39,7 +39,7 @@ public class CompanyFacade extends ClientFacade {
 
 //	------------------------------------------------------------------------------------------------------------
 
-	public void addCompanyCoupon(Coupon coupon) throws AlreadyExistException {
+	public void addCompanyCoupon(Coupon coupon) throws CouponSystemException {
 
 		List<Coupon> coup = couponsDAO.getAllCouponsByCompanyID(companyId);
 
