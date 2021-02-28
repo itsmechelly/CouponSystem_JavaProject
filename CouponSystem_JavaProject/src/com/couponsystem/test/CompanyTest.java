@@ -5,15 +5,11 @@ import java.util.Date;
 import com.couponsystem.beans.Category;
 import com.couponsystem.beans.Coupon;
 import com.couponsystem.dao.CategoryDAO;
-import com.couponsystem.dao.CompaniesDAO;
 import com.couponsystem.dao.CouponsDAO;
-import com.couponsystem.dao.CustomersDAO;
 import com.couponsystem.dbdao.CategoryDBDAO;
-import com.couponsystem.dbdao.CompaniesDBDAO;
 import com.couponsystem.dbdao.CouponsDBDAO;
-import com.couponsystem.dbdao.CustomersDBDAO;
 import com.couponsystem.exceptions.AlreadyExistException;
-import com.couponsystem.exceptions.LogException;
+import com.couponsystem.exceptions.CouponSystemException;
 import com.couponsystem.exceptions.NotAllowedException;
 import com.couponsystem.exceptions.PurchaseCouponException;
 import com.couponsystem.facade.CompanyFacade;
@@ -51,7 +47,7 @@ public class CompanyTest {
 			System.out.println("Going to test login exception - *WRONG* *Email* for companyFacade.login:");
 			companyUser = (CompanyFacade) LoginManager.getInstance().login("BADcompany@email.com", "2222",
 					ClientType.COMPANY);
-		} catch (LogException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 
@@ -60,7 +56,7 @@ public class CompanyTest {
 			System.out.println("Going to test login exception - *WRONG* *Password* for companyFacade.login:");
 			companyUser = (CompanyFacade) LoginManager.getInstance().login("Company2@email.com", "BADcompany",
 					ClientType.COMPANY);
-		} catch (LogException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 
@@ -69,7 +65,7 @@ public class CompanyTest {
 			System.out.println("Going to test GOOD companyFacade.login:");
 			companyUser = (CompanyFacade) LoginManager.getInstance().login("Company2@email.com", "2222",
 					ClientType.COMPANY);
-		} catch (LogException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 

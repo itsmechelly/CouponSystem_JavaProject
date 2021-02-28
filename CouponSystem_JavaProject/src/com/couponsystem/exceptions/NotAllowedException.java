@@ -1,6 +1,6 @@
 package com.couponsystem.exceptions;
 
-public class NotAllowedException extends Exception {
+public class NotAllowedException extends CouponSystemException {
 
 	/**
 	 * 
@@ -9,7 +9,6 @@ public class NotAllowedException extends Exception {
 
 	public NotAllowedException(String string) {
 		super("System error, unable to " + string);
-
 	}
 
 }

@@ -1,6 +1,6 @@
 package com.couponsystem.exceptions;
 
-public class AlreadyExistException extends Exception {
+public class AlreadyExistException extends CouponSystemException {
 
 	/**
 	 * 

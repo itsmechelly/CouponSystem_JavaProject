@@ -6,7 +6,7 @@ import com.couponsystem.dao.CustomersDAO;
 import com.couponsystem.dbdao.CompaniesDBDAO;
 import com.couponsystem.dbdao.CouponsDBDAO;
 import com.couponsystem.dbdao.CustomersDBDAO;
-import com.couponsystem.exceptions.LogException;
+import com.couponsystem.exceptions.CouponSystemException;
 
 public abstract class ClientFacade {
 
@@ -20,5 +20,5 @@ public abstract class ClientFacade {
 		couponsDAO = new CouponsDBDAO();
 	}
 
-	public abstract boolean login(String email, String password) throws LogException;
+	public abstract boolean login(String email, String password) throws CouponSystemException;
 }

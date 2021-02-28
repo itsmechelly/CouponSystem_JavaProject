@@ -3,7 +3,7 @@ package com.couponsystem.test;
 import com.couponsystem.beans.Company;
 import com.couponsystem.beans.Customer;
 import com.couponsystem.exceptions.AlreadyExistException;
-import com.couponsystem.exceptions.LogException;
+import com.couponsystem.exceptions.CouponSystemException;
 import com.couponsystem.exceptions.NotAllowedException;
 import com.couponsystem.facade.AdminFacade;
 import com.couponsystem.security.ClientType;
@@ -26,7 +26,7 @@ public class AdminTest {
 			System.out.println("Going to test login exception - *WRONG* *Email* for adminFacade.login:");
 			adminUser = (AdminFacade) LoginManager.getInstance().login("BADadmin@BADadmin.com", "admin",
 					ClientType.ADMINISTRATOR);
-		} catch (LogException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 
@@ -35,7 +35,7 @@ public class AdminTest {
 			System.out.println("Going to test login exception - *WRONG* *Password* for adminFacade.login:");
 			adminUser = (AdminFacade) LoginManager.getInstance().login("admin@admin.com", "BADadmin",
 					ClientType.ADMINISTRATOR);
-		} catch (LogException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 
@@ -44,7 +44,7 @@ public class AdminTest {
 			System.out.println("Going to test GOOD adminFacade.login:");
 			adminUser = (AdminFacade) LoginManager.getInstance().login("admin@admin.com", "admin",
 					ClientType.ADMINISTRATOR);
-		} catch (LogException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 

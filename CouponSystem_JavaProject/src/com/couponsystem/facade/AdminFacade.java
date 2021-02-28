@@ -6,7 +6,6 @@ import com.couponsystem.beans.Company;
 import com.couponsystem.beans.Coupon;
 import com.couponsystem.beans.Customer;
 import com.couponsystem.exceptions.AlreadyExistException;
-import com.couponsystem.exceptions.LogException;
 import com.couponsystem.exceptions.NotAllowedException;
 
 public class AdminFacade extends ClientFacade {
@@ -14,7 +13,7 @@ public class AdminFacade extends ClientFacade {
 //	------------------------------------------------------------------------------------------------------------
 
 	@Override
-	public boolean login(String email, String password) throws LogException {
+	public boolean login(String email, String password) {
 		if (email.equalsIgnoreCase("admin@admin.com") && password.equals("admin")) {
 			return true;
 		}

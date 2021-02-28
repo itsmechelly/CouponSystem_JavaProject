@@ -4,7 +4,7 @@ import com.couponsystem.beans.Category;
 import com.couponsystem.beans.Coupon;
 import com.couponsystem.dao.CouponsDAO;
 import com.couponsystem.dbdao.CouponsDBDAO;
-import com.couponsystem.exceptions.LogException;
+import com.couponsystem.exceptions.CouponSystemException;
 import com.couponsystem.exceptions.PurchaseCouponException;
 import com.couponsystem.facade.CustomerFacade;
 import com.couponsystem.security.ClientType;
@@ -29,7 +29,7 @@ public class CustomerTest {
 			System.out.println("Going to test login exception  - *WRONG* *Email* for customerFacade.login:");
 			customerUser = (CustomerFacade) LoginManager.getInstance().login("BADcustomer@email.com", "2222",
 					ClientType.CUSTOMER);
-		} catch (LogException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 
@@ -38,7 +38,7 @@ public class CustomerTest {
 			System.out.println("Going to test login exception - *WRONG* *Password* for customerFacade.login:");
 			customerUser = (CustomerFacade) LoginManager.getInstance().login("Customer2@email.com", "BADcustomer",
 					ClientType.CUSTOMER);
-		} catch (LogException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 
@@ -47,7 +47,7 @@ public class CustomerTest {
 			System.out.println("Going to test GOOD customerFacade.login:");
 			customerUser = (CustomerFacade) LoginManager.getInstance().login("Customer2@email.com", "2222",
 					ClientType.CUSTOMER);
-		} catch (LogException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 

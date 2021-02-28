@@ -1,6 +1,6 @@
 package com.couponsystem.exceptions;
 
-public class LogException extends Exception {
+public class LogException extends CouponSystemException {
 
 	/**
 	 * 

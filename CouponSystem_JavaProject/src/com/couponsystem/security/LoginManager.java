@@ -1,5 +1,6 @@
 package com.couponsystem.security;
 
+import com.couponsystem.exceptions.CouponSystemException;
 import com.couponsystem.exceptions.LogException;
 import com.couponsystem.facade.AdminFacade;
 import com.couponsystem.facade.ClientFacade;
@@ -24,7 +25,7 @@ public class LoginManager {
 		return instance;
 	}
 
-	public ClientFacade login(String email, String password, ClientType clientType) throws LogException {
+	public ClientFacade login(String email, String password, ClientType clientType) throws CouponSystemException {
 
 		switch (clientType) {
 

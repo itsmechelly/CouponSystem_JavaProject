@@ -1,6 +1,6 @@
 package com.couponsystem.exceptions;
 
-public class PurchaseCouponException extends Exception {
+public class PurchaseCouponException extends CouponSystemException {
 	
 	/**
 	 * 
@@ -9,6 +9,5 @@ public class PurchaseCouponException extends Exception {
 
 	public PurchaseCouponException(String string) {
 		super(string);
-
 	}
 }
