@@ -9,7 +9,6 @@ import com.couponsystem.dao.CouponsDAO;
 import com.couponsystem.dbdao.CategoryDBDAO;
 import com.couponsystem.dbdao.CouponsDBDAO;
 import com.couponsystem.exceptions.CouponSystemException;
-import com.couponsystem.exceptions.NotAllowedException;
 import com.couponsystem.facade.CompanyFacade;
 import com.couponsystem.security.ClientType;
 import com.couponsystem.security.LoginManager;
@@ -179,7 +178,7 @@ public class CompanyTest {
 		try {
 			companyUser.updateCompanyCoupon(couFromDB2);
 			System.out.println("Updated successfully: Company2.");
-		} catch (NotAllowedException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 
@@ -189,7 +188,7 @@ public class CompanyTest {
 		try {
 			companyUser.deleteCompanyCoupons(6);
 			System.out.println("Deleted successfully: Coupon6.");
-		} catch (NotAllowedException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 
@@ -198,7 +197,7 @@ public class CompanyTest {
 
 		try {
 			companyUser.deleteCompanyCoupons(5);
-		} catch (NotAllowedException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 

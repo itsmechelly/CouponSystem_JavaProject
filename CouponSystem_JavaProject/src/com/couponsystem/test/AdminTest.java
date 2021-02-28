@@ -3,7 +3,6 @@ package com.couponsystem.test;
 import com.couponsystem.beans.Company;
 import com.couponsystem.beans.Customer;
 import com.couponsystem.exceptions.CouponSystemException;
-import com.couponsystem.exceptions.NotAllowedException;
 import com.couponsystem.facade.AdminFacade;
 import com.couponsystem.security.ClientType;
 import com.couponsystem.security.LoginManager;
@@ -134,7 +133,7 @@ public class AdminTest {
 		try {
 			adminUser.updateCompany(3, com3FromDB);
 			System.out.println("Updated successfully: Company3.");
-		} catch (NotAllowedException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 
@@ -151,7 +150,7 @@ public class AdminTest {
 
 		try {
 			adminUser.updateCompany(3, com3FromDB);
-		} catch (NotAllowedException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 
@@ -246,7 +245,7 @@ public class AdminTest {
 		try {
 			adminUser.updateCustomer(3, custFromDB);
 			System.out.println("Updated successfully: Customer3.");
-		} catch (NotAllowedException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 

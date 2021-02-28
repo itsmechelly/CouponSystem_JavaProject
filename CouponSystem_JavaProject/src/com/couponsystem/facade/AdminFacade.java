@@ -34,7 +34,7 @@ public class AdminFacade extends ClientFacade {
 		companiesDAO.addCompany(company);
 	}
 
-	public void updateCompany(int companyID, Company company) throws NotAllowedException {
+	public void updateCompany(int companyID, Company company) throws CouponSystemException {
 
 		Company comp = companiesDAO.getOneCompany(companyID);
 
@@ -87,7 +87,7 @@ public class AdminFacade extends ClientFacade {
 		customersDAO.addCustomer(customer);
 	}
 
-	public void updateCustomer(int customerID, Customer customer) throws NotAllowedException {
+	public void updateCustomer(int customerID, Customer customer) throws CouponSystemException {
 
 		Customer cust = customersDAO.getOneCustomer(customerID);
 

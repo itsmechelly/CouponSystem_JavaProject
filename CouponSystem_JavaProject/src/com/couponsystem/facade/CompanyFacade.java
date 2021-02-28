@@ -50,7 +50,7 @@ public class CompanyFacade extends ClientFacade {
 		couponsDAO.addCoupon(coupon);
 	}
 
-	public void updateCompanyCoupon(Coupon coupon) throws NotAllowedException {
+	public void updateCompanyCoupon(Coupon coupon) throws CouponSystemException {
 
 		Coupon coup = couponsDAO.getOneCoupon(coupon.getId());
 
@@ -65,7 +65,7 @@ public class CompanyFacade extends ClientFacade {
 		couponsDAO.updateCoupon(coupon);
 	}
 
-	public void deleteCompanyCoupons(int couponId) throws NotAllowedException {
+	public void deleteCompanyCoupons(int couponId) throws CouponSystemException {
 
 		List<Coupon> coup = couponsDAO.getAllCoupons();
 
