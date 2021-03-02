@@ -40,12 +40,8 @@ public class CompanyFacade extends ClientFacade {
 
 	public void addCompanyCoupon(Coupon coupon) throws CouponSystemException {
 
-		List<Coupon> coup = couponsDAO.getAllCouponsByCompanyID(companyId);
-
-		for (Coupon coupons : coup) {
-			if (coupon.getTitle().equals(coupons.getTitle())) {
-				throw new AlreadyExistException("Coupon name: ", coupon.getTitle());
-			}
+		if (couponsDAO.isCouponTitleByCompanyIdExist(coupon.getTitle(), companyId)) {
+			throw new AlreadyExistException("Coupon name: ", coupon.getTitle());
 		}
 		couponsDAO.addCoupon(coupon);
 	}

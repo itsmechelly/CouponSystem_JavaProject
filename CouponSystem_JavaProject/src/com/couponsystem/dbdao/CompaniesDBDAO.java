@@ -22,7 +22,6 @@ public class CompaniesDBDAO implements CompaniesDAO {
 	private static final String IS_COMPANY_EXISTS_QUERY = "SELECT * FROM coupon_system.companies WHERE `email` = ? AND `password` = ?;";
 	private static final String IS_COMPANY_NAME_EXISTS_QUERY = "SELECT `name` FROM coupon_system.companies WHERE `name` = ?;";
 	private static final String IS_COMPANY_EMAIL_EXISTS_QUERY = "SELECT `email` FROM coupon_system.companies WHERE `email` = ?;";
-
 	private static final String GET_COMPANY_ID_BY_EMAIL_AND_PASSWORD_QUERY = "SELECT `id` FROM coupon_system.companies WHERE `email` = ? AND `password` = ?;";
 
 	@Override

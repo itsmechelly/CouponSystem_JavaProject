@@ -29,6 +29,8 @@ public class CouponsDBDAO implements CouponsDAO {
 	private static final String ADD_COUPON_PURCHASE_QUERY = "INSERT INTO `coupon_system`.`customers_vs_coupons` (`customer_id`, `coupon_id`) VALUES (?, ?);";
 	private static final String DELETE_COUPON_PURCHASEE_QUERY = "DELETE FROM `coupon_system`.`customers_vs_coupons` WHERE `customer_id` = ? AND `coupon_id` = ?;";
 	private static final String DELETE_COUPON_PURCHASEE_QUERY_FOR_FACADE = "DELETE FROM `coupon_system`.`customers_vs_coupons` WHERE `coupon_id` = ?;";
+////////
+	private static final String IS_COUPON_TITLE_BY_COMPANY_ID_EXIST_QUERY = "SELECT `title` FROM coupon_system.coupons WHERE `title` = ? AND `company_id` = ?;";
 
 	@Override
 	public void addCoupon(Coupon coupon) {
@@ -421,6 +423,36 @@ public class CouponsDBDAO implements CouponsDAO {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
 		}
+	}
+
+	/**
+	 * This method has been used in: companyFacade.addCompanyCoupon method.
+	 */
+	@Override
+	public boolean isCouponTitleByCompanyIdExist(String title, int companyId) {
+		try {
+			connection = ConnectionPool.getInstance().getConnection();
+
+			String sql = IS_COUPON_TITLE_BY_COMPANY_ID_EXIST_QUERY;
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+
+			statement.setString(1, title);
+			statement.setInt(2, companyId);
+
+			ResultSet resultSet = statement.executeQuery();
+
+			if (resultSet.next()) {
+				return true;
+			}
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionPool.getInstance().returnConnection(connection);
+			connection = null;
+		}
+		return false;
 	}
 
 }
