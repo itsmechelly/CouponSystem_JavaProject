@@ -51,11 +51,11 @@ public class CompanyFacade extends ClientFacade {
 		Coupon coup = couponsDAO.getOneCoupon(coupon.getId());
 
 		if (coup.getId() != coupon.getId()) {
-			throw new NotAllowedException("update id number.");
+			throw new NotAllowedException("update coupon id number.");
 		}
 
 		if (coup.getCompanyId() != coupon.getCompanyId()) {
-			throw new NotAllowedException("update id number.");
+			throw new NotAllowedException("update company id number.");
 		}
 
 		couponsDAO.updateCoupon(coupon);
@@ -63,22 +63,13 @@ public class CompanyFacade extends ClientFacade {
 
 	public void deleteCompanyCoupons(int couponId) throws CouponSystemException {
 
-		List<Coupon> coup = couponsDAO.getAllCoupons();
-
 		Coupon couponFromDb = couponsDAO.getOneCoupon(couponId);
 
-		for (Coupon c : coup) {
-
-			if (couponFromDb.getCompanyId() != companyId) {
-				throw new NotAllowedException("delete coupon - not exist, please try again.");
-			}
-
-			if (couponId != c.getId()) {
-//				couponsDAO.deleteCouponPurchaseForFacade(couponId);
-//				couponsDAO.deleteCouponPurchase(this.companyID, couponId);
-				couponsDAO.deleteCoupon(couponId);
-			}
+		if (couponFromDb.getCompanyId() != this.companyId) {
+			throw new NotAllowedException("delete coupon - not exist, please try again.");
 		}
+
+		couponsDAO.deleteCouponByCouponIdAndCompanyId(couponId, this.companyId);
 	}
 
 	public List<Coupon> getAllCompanyCoupons() {

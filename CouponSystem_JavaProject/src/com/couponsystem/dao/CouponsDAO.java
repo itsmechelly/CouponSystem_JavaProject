@@ -35,7 +35,12 @@ public interface CouponsDAO {
 
 // 	This method used in adminFacade.deleteCompany + companyFacade.deleteCompanyCoupon + CouponExpirationDailyJob method;
 	void deleteCouponPurchaseForFacade(int couponID);
-	
+
+//	->
 // This method has been used in companyFacade.addCompanyCoupon method.
-	boolean isCouponTitleByCompanyIdExist (String title, int companyId);
+	boolean isCouponTitleByCompanyIdExist(String title, int companyId);
+	
+// This method has been used in companyFacade.deleteCompanyCoupons method.
+	void deleteCouponByCouponIdAndCompanyId(int couponId, int companyId);
+
 }

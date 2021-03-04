@@ -31,6 +31,7 @@ public class CouponsDBDAO implements CouponsDAO {
 	private static final String DELETE_COUPON_PURCHASEE_QUERY_FOR_FACADE = "DELETE FROM `coupon_system`.`customers_vs_coupons` WHERE `coupon_id` = ?;";
 ////////
 	private static final String IS_COUPON_TITLE_BY_COMPANY_ID_EXIST_QUERY = "SELECT `title` FROM coupon_system.coupons WHERE `title` = ? AND `company_id` = ?;";
+	private static final String DELETE_COUPON_BY_COUPON_ID_AND_COMPANY_ID_QUERY = "DELETE FROM `coupon_system`.`coupons` WHERE (`id` = ?) AND `company_id` = ?;";
 
 	@Override
 	public void addCoupon(Coupon coupon) {
@@ -445,7 +446,7 @@ public class CouponsDBDAO implements CouponsDAO {
 			if (resultSet.next()) {
 				return true;
 			}
-			
+
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} finally {
@@ -453,6 +454,33 @@ public class CouponsDBDAO implements CouponsDAO {
 			connection = null;
 		}
 		return false;
+	}
+	
+	/**
+	 * This method has been used in companyFacade.deleteCompanyCoupons method.
+	 */
+	@Override
+	public void deleteCouponByCouponIdAndCompanyId(int couponId, int companyId) {
+
+		try {
+			connection = ConnectionPool.getInstance().getConnection();
+
+			String sql = DELETE_COUPON_BY_COUPON_ID_AND_COMPANY_ID_QUERY;
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+
+			statement.setInt(1, couponId);
+			statement.setInt(2, companyId);
+
+			statement.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionPool.getInstance().returnConnection(connection);
+			connection = null;
+		}
+
 	}
 
 }
