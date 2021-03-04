@@ -2,6 +2,7 @@ package com.couponsystem.dao;
 
 import java.util.List;
 
+import com.couponsystem.beans.Category;
 import com.couponsystem.beans.Coupon;
 import com.couponsystem.beans.CustomersVsCoupons;
 
@@ -42,5 +43,8 @@ public interface CouponsDAO {
 	
 // This method has been used in companyFacade.deleteCompanyCoupons method.
 	void deleteCouponByCouponIdAndCompanyId(int couponId, int companyId);
+
+// This method has been used in companyFacade.getCompanyCouponsByCategory method.
+	List<Coupon> getAllCouponsByCategoryAndCompanyID(Category category, int companyId);
 
 }

@@ -8,6 +8,7 @@ import com.couponsystem.beans.Company;
 import com.couponsystem.beans.Coupon;
 import com.couponsystem.exceptions.AlreadyExistException;
 import com.couponsystem.exceptions.CouponSystemException;
+import com.couponsystem.exceptions.CouponsNotFoundException;
 import com.couponsystem.exceptions.NotAllowedException;
 
 public class CompanyFacade extends ClientFacade {
@@ -77,15 +78,12 @@ public class CompanyFacade extends ClientFacade {
 		return couponsDAO.getAllCouponsByCompanyID(companyId);
 	}
 
-	public List<Coupon> getCompanyCouponsByCategory(Category category) {
+	public List<Coupon> getCompanyCouponsByCategory(Category category) throws CouponsNotFoundException {
 
-		List<Coupon> coup = couponsDAO.getAllCouponsByCompanyID(companyId);
-		List<Coupon> coupByCategory = new ArrayList<Coupon>();
-
-		for (Coupon c : coup) {
-			if (c.getCategory().equals(category)) {
-				coupByCategory.add(c);
-			}
+		List<Coupon> coupByCategory = couponsDAO.getAllCouponsByCategoryAndCompanyID(category, this.companyId);
+		
+		if (coupByCategory.isEmpty()) {
+			throw new CouponsNotFoundException();
 		}
 		return coupByCategory;
 	}

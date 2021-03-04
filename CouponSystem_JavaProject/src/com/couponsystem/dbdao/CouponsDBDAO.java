@@ -31,7 +31,8 @@ public class CouponsDBDAO implements CouponsDAO {
 	private static final String DELETE_COUPON_PURCHASEE_QUERY_FOR_FACADE = "DELETE FROM `coupon_system`.`customers_vs_coupons` WHERE `coupon_id` = ?;";
 ////////
 	private static final String IS_COUPON_TITLE_BY_COMPANY_ID_EXIST_QUERY = "SELECT `title` FROM coupon_system.coupons WHERE `title` = ? AND `company_id` = ?;";
-	private static final String DELETE_COUPON_BY_COUPON_ID_AND_COMPANY_ID_QUERY = "DELETE FROM `coupon_system`.`coupons` WHERE (`id` = ?) AND `company_id` = ?;";
+	private static final String DELETE_COUPON_BY_COUPON_ID_AND_COMPANY_ID_QUERY = "DELETE FROM `coupon_system`.`coupons` WHERE `id` = ? AND `company_id` = ?;";
+	private static final String GET_ALL_COUPONS_BY_CATEGORY_AND_COMPANY_ID_QUERY = "SELECT * FROM `coupon_system`.`coupons` WHERE `category_id` = ? AND `company_id` = ?;";
 
 	@Override
 	public void addCoupon(Coupon coupon) {
@@ -455,7 +456,7 @@ public class CouponsDBDAO implements CouponsDAO {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * This method has been used in companyFacade.deleteCompanyCoupons method.
 	 */
@@ -480,6 +481,48 @@ public class CouponsDBDAO implements CouponsDAO {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
 		}
+
+	}
+
+	@Override
+	public List<Coupon> getAllCouponsByCategoryAndCompanyID(Category category, int companyId) {
+
+		List<Coupon> coupons = new ArrayList<Coupon>();
+
+		try {
+			connection = ConnectionPool.getInstance().getConnection();
+
+			String sql = GET_ALL_COUPONS_BY_CATEGORY_AND_COMPANY_ID_QUERY;
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+
+			statement.setInt(1, category.ordinal() + 1);
+			statement.setInt(2, companyId);
+
+			ResultSet resultSet = statement.executeQuery();
+
+			while (resultSet.next()) {
+				Coupon coupon = new Coupon();
+				coupon.setId(resultSet.getInt(1));
+				coupon.setCompanyId(resultSet.getInt(2));
+				coupon.setCategory(Category.values()[resultSet.getInt(3) - 1]);
+				coupon.setTitle(resultSet.getString(4));
+				coupon.setDescription(resultSet.getString(5));
+				coupon.setStartDate(resultSet.getDate(6).toLocalDate());
+				coupon.setEndDate(resultSet.getDate(7).toLocalDate());
+				coupon.setAmount(resultSet.getInt(8));
+				coupon.setPrice(resultSet.getDouble(9));
+				coupon.setImage(resultSet.getString(10));
+				coupons.add(coupon);
+			}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionPool.getInstance().returnConnection(connection);
+			connection = null;
+		}
+		return coupons;
 
 	}
 

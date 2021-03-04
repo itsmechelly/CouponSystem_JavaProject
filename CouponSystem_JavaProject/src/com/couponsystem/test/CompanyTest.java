@@ -206,7 +206,12 @@ public class CompanyTest {
 
 		TestUtils.testSeparatedLine("Testing Company Facade - getCompanyCouponsByCategory:");
 		System.out.println("Going to print *Electricity category coupons*:");
-		TestUtils.printCouponsTable(companyUser.getCompanyCouponsByCategory(Category.ELECTRICITY));
+		
+		try {
+			TestUtils.printCouponsTable(companyUser.getCompanyCouponsByCategory(Category.ELECTRICITY));			
+		} catch (CouponSystemException e) {
+			System.out.println(e.getMessage());
+		}
 
 		TestUtils.testSeparatedLine("Testing Company Facade - getCompanyCouponsUnderMaxPrice:");
 		System.out.println("Going to print company coupon purchase - under amount of 2500:");
