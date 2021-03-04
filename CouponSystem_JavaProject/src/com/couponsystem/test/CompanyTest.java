@@ -9,6 +9,7 @@ import com.couponsystem.dao.CouponsDAO;
 import com.couponsystem.dbdao.CategoryDBDAO;
 import com.couponsystem.dbdao.CouponsDBDAO;
 import com.couponsystem.exceptions.CouponSystemException;
+import com.couponsystem.exceptions.CouponsNotFoundException;
 import com.couponsystem.facade.CompanyFacade;
 import com.couponsystem.security.ClientType;
 import com.couponsystem.security.LoginManager;
@@ -220,10 +221,18 @@ public class CompanyTest {
 
 		TestUtils.testSeparatedLine("Testing Company Facade - getCompanyCouponsUnderMaxPrice:");
 		System.out.println("Going to print company coupon purchase - under amount of 2500:");
-		TestUtils.printCouponsTable(companyUser.getCompanyCouponsUnderMaxPrice(2500));
+		try {
+			TestUtils.printCouponsTable(companyUser.getCompanyCouponsUnderMaxPrice(2500));			
+		} catch (CouponSystemException e) {
+			System.out.println(e.getMessage());
+		}
 
 		TestUtils.testSeparatedLine("Testing Company Facade - getCompanyDetails:");
-		System.out.println(companyUser.getCompanyDetails());
+		try {
+			System.out.println(companyUser.getCompanyDetails());
+		} catch (CouponsNotFoundException e) {
+			System.out.println(e.getMessage());
+		}
 
 	}
 }

@@ -1,6 +1,5 @@
 package com.couponsystem.facade;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.couponsystem.beans.Category;
@@ -19,9 +18,9 @@ public class CompanyFacade extends ClientFacade {
 		this.companyId = companyId;
 	}
 
-	public CompanyFacade() {
-		super();
-	}
+//	public CompanyFacade() {
+//		super();
+//	}
 
 //	------------------------------------------------------------------------------------------------------------
 
@@ -82,7 +81,7 @@ public class CompanyFacade extends ClientFacade {
 
 	public List<Coupon> getCompanyCouponsByCategory(Category category) throws CouponsNotFoundException {
 
-		List<Coupon> coupByCategory = couponsDAO.getAllCouponsByCategoryAndCompanyID(category, this.companyId);
+		List<Coupon> coupByCategory = couponsDAO.getAllCouponsByCategoryAndCompanyId(category, this.companyId);
 		
 		if (coupByCategory.isEmpty()) {
 			throw new CouponsNotFoundException();
@@ -90,25 +89,21 @@ public class CompanyFacade extends ClientFacade {
 		return coupByCategory;
 	}
 
-	public List<Coupon> getCompanyCouponsUnderMaxPrice(double maxPrice) {
-
-		List<Coupon> coup = couponsDAO.getAllCouponsByCompanyID(companyId);
-		List<Coupon> CouponsUnderMaxPrice = new ArrayList<Coupon>();
-
-		for (Coupon c : coup) {
-			if (c.getPrice() < maxPrice) {
-				CouponsUnderMaxPrice.add(c);
-			}
+	public List<Coupon> getCompanyCouponsUnderMaxPrice(double maxPrice) throws CouponsNotFoundException {
+		
+		List<Coupon> coupUnderMax = couponsDAO.getAllCouponsByCompanyIdUnderMaxPrice(this.companyId, maxPrice);
+		
+		if (coupUnderMax.isEmpty()) {
+			throw new CouponsNotFoundException();
 		}
-		return CouponsUnderMaxPrice;
+		return coupUnderMax;
 	}
 
-//	public Company getCompanyDetails() {
-//
-//		Company comp = companiesDAO.getOneCompany(companyId);
-//		comp.setCoupons(getAllCompanyCoupons());
-//
-//		return comp;
-//	}
+	public Company getCompanyDetails() throws CouponsNotFoundException {
+
+		Company comp = companiesDAO.getOneCompany(companyId);
+		comp.setCoupons(getAllCompanyCoupons());
+		return comp;
+	}
 
 }

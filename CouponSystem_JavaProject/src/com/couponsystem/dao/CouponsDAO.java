@@ -45,6 +45,8 @@ public interface CouponsDAO {
 	void deleteCouponByCouponIdAndCompanyId(int couponId, int companyId);
 
 // This method has been used in companyFacade.getCompanyCouponsByCategory method.
-	List<Coupon> getAllCouponsByCategoryAndCompanyID(Category category, int companyId);
+	List<Coupon> getAllCouponsByCategoryAndCompanyId(Category category, int companyId);
 
+// This method has been used in companyFacade.getCompanyCouponsByCategory method.
+	List<Coupon> getAllCouponsByCompanyIdUnderMaxPrice(int companyId, double maxPrice);
 }
