@@ -54,11 +54,9 @@ public class CompanyFacade extends ClientFacade {
 		if (coup.getId() != coupon.getId()) {
 			throw new NotAllowedException("update coupon id number.");
 		}
-
 		if (coup.getCompanyId() != coupon.getCompanyId()) {
 			throw new NotAllowedException("update company id number.");
 		}
-
 		couponsDAO.updateCoupon(coupon);
 	}
 
@@ -69,13 +67,17 @@ public class CompanyFacade extends ClientFacade {
 		if (couponFromDb.getCompanyId() != this.companyId) {
 			throw new NotAllowedException("delete coupon - not exist, please try again.");
 		}
-
 		couponsDAO.deleteCouponByCouponIdAndCompanyId(couponId, this.companyId);
 	}
 
-	public List<Coupon> getAllCompanyCoupons() {
+	public List<Coupon> getAllCompanyCoupons() throws CouponsNotFoundException {
 
-		return couponsDAO.getAllCouponsByCompanyID(companyId);
+		List<Coupon> allCoumCoup = couponsDAO.getAllCouponsByCompanyID(companyId);
+		
+		if (allCoumCoup.isEmpty()) {
+			throw new CouponsNotFoundException();
+		}
+		return allCoumCoup;
 	}
 
 	public List<Coupon> getCompanyCouponsByCategory(Category category) throws CouponsNotFoundException {
@@ -101,12 +103,12 @@ public class CompanyFacade extends ClientFacade {
 		return CouponsUnderMaxPrice;
 	}
 
-	public Company getCompanyDetails() {
-
-		Company comp = companiesDAO.getOneCompany(companyId);
-		comp.setCoupons(getAllCompanyCoupons());
-
-		return comp;
-	}
+//	public Company getCompanyDetails() {
+//
+//		Company comp = companiesDAO.getOneCompany(companyId);
+//		comp.setCoupons(getAllCompanyCoupons());
+//
+//		return comp;
+//	}
 
 }
