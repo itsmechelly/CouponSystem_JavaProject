@@ -23,7 +23,7 @@ public interface CouponsDAO {
 	void deleteCouponPurchase(int customerID, int couponID);
 
 //	This method used in customerFacade.addPurchase method;
-	boolean isCouponExists(int couponID);
+//	boolean isCouponExists(int couponID);
 
 //	This method used in CustomerFacade.purchaseCoupon method;
 	List<CustomersVsCoupons> getAllCustomersVsCoupons();
@@ -59,5 +59,5 @@ public interface CouponsDAO {
 	List<Coupon> getAllCouponsByCustomerIdUnderMaxPrice(int CustomerId, double maxPrice);
 
 //This method has been used in customerFacade.purchaseCoupon method.
-	Coupon getCouponByCouponIdAndCustomerId(int couponId, int CustomerId);
+	//Coupon getCouponByCouponIdAndCustomerId(int couponId, int CustomerId);
 }
