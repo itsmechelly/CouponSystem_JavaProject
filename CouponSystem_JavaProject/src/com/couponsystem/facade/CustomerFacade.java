@@ -45,29 +45,20 @@ public class CustomerFacade extends ClientFacade {
 		Coupon couponFromDb = couponsDAO.getOneCoupon((coupon.getId()));
 		List<CustomersVsCoupons> customerVsCoupons = couponsDAO.getAllCustomersVsCoupons();
 
-//		The customer can't purchase the coupon more then once:
 		for (CustomersVsCoupons custVsCoup : customerVsCoupons) {
 			if (custVsCoup.getCustomerId() == this.customerId && custVsCoup.getCouponId() == coupon.getId()) {
-				throw new PurchaseCouponException("Purchasing this type of coupon is limited to one use only."
-						+ " you are welcome to choose another coupon.");
+				throw new PurchaseCouponException("Purchasing this type of coupon is limited to one use only. you are welcome to choose another coupon.");
 			}
 		}
-
-//		The customer can't purchase the coupon if amount < 0:
 		if (couponFromDb.getAmount() == 0) {
 			throw new PurchaseCouponException("Coupon out of stock, you are welcome to choose another coupon.");
 		}
-
-//		The customer can't purchase the coupon if the coupon has expired:
 		if (couponFromDb.getEndDate().isBefore(LocalDate.now())) {
 			throw new PurchaseCouponException("This coupon has expired, you are welcome to choose another coupon.");
 		}
 
-//		If purchase was done - going to lower the quantity in stock:
 		System.out.println("Testing decrease amount by 1 after coupon purchase:");
 		couponFromDb.setAmount(couponFromDb.getAmount() - 1);
-
-//		Going to update purchase in all relevant tables:
 		couponsDAO.updateCoupon(couponFromDb);
 		System.out.println("Going to update purchase in all relevant tables...");
 		couponsDAO.addCouponPurchase(this.customerId, coupon.getId());
@@ -114,4 +105,5 @@ public class CustomerFacade extends ClientFacade {
 		cust.setCoupons(getAllCustomerCoupons());
 		return cust;
 	}
+	
 }
