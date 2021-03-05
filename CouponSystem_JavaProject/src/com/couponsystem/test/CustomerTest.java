@@ -54,6 +54,7 @@ public class CustomerTest {
 
 		TestUtils.testSeparatedLine("Testing Customer Facade - purchaseCoupon:");
 		System.out.println("Going to print GOOD coupon purchase - Customer2 purchase Coupon2 and Coupon4:");
+		System.out.println();
 		Coupon couFromDB222 = couponsDAO.getOneCoupon(2);
 		Coupon couFromDB444 = couponsDAO.getOneCoupon(4);
 
@@ -64,7 +65,6 @@ public class CustomerTest {
 			System.out.println(e.getMessage());
 		}
 
-		System.out.println();
 		System.out.println(
 				"Going to test exception - BAD coupon purchase - The customer can't purchase the same coupon more then once :");
 
@@ -97,18 +97,34 @@ public class CustomerTest {
 		}
 
 		TestUtils.testSeparatedLine("Testing Customer Facade - getAllCustomerCoupons:");
-		TestUtils.printCouponsTable(customerUser.getAllCustomerCoupons());
+		try {
+			TestUtils.printCouponsTable(customerUser.getAllCustomerCoupons());
+		} catch (CouponSystemException e) {
+			System.out.println(e.getMessage());
+		}
 
 		TestUtils.testSeparatedLine("Testing Customer Facade - getCustomerCouponsByCategory:");
 		System.out.println("Going to print customer coupon purchase - of electricity category only:");
-		TestUtils.printCouponsTable(customerUser.getCustomerCouponsByCategory(Category.ELECTRICITY));
+		try {
+			TestUtils.printCouponsTable(customerUser.getCustomerCouponsByCategory(Category.ELECTRICITY));
+		} catch (CouponSystemException e) {
+			System.out.println(e.getMessage());
+		}
 
 		TestUtils.testSeparatedLine("Testing Customer Facade - getCustomerCouponsUnderMaxPrice:");
 		System.out.println("Going to print customer coupon purchase - under amount of 2500:");
-		TestUtils.printCouponsTable(customerUser.getCustomerCouponsUnderMaxPrice(2500));
+		try {
+			TestUtils.printCouponsTable(customerUser.getCustomerCouponsUnderMaxPrice(2500));
+		} catch (CouponSystemException e) {
+			System.out.println(e.getMessage());
+		}
 
 		TestUtils.testSeparatedLine("Testing Customer Facade - getCustomerDetails:");
-		System.out.println(customerUser.getCustomerDetails());
+		try {
+			System.out.println(customerUser.getCustomerDetails());
+		} catch (CouponSystemException e) {
+			System.out.println(e.getMessage());
+		}
 
 	}
 }

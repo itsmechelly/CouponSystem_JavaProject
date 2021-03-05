@@ -49,4 +49,15 @@ public interface CouponsDAO {
 
 // This method has been used in companyFacade.getCompanyCouponsByCategory method.
 	List<Coupon> getAllCouponsByCompanyIdUnderMaxPrice(int companyId, double maxPrice);
+
+	
+	
+//This method has been used in customerFacade.getCustomerCouponsByCategory method.
+	List<Coupon> getAllCouponsByCategoryAndCustomerId(Category category, int CustomerId);
+
+//This method has been used in customerFacade.getCustomerCouponsUnderMaxPrice method.
+	List<Coupon> getAllCouponsByCustomerIdUnderMaxPrice(int CustomerId, double maxPrice);
+
+//This method has been used in customerFacade.purchaseCoupon method.
+	Coupon getCouponByCouponIdAndCustomerId(int couponId, int CustomerId);
 }

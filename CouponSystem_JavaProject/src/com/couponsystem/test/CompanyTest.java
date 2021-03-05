@@ -9,7 +9,6 @@ import com.couponsystem.dao.CouponsDAO;
 import com.couponsystem.dbdao.CategoryDBDAO;
 import com.couponsystem.dbdao.CouponsDBDAO;
 import com.couponsystem.exceptions.CouponSystemException;
-import com.couponsystem.exceptions.CouponsNotFoundException;
 import com.couponsystem.facade.CompanyFacade;
 import com.couponsystem.security.ClientType;
 import com.couponsystem.security.LoginManager;
@@ -230,7 +229,7 @@ public class CompanyTest {
 		TestUtils.testSeparatedLine("Testing Company Facade - getCompanyDetails:");
 		try {
 			System.out.println(companyUser.getCompanyDetails());
-		} catch (CouponsNotFoundException e) {
+		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
 

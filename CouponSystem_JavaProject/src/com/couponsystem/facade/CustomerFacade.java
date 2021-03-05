@@ -9,6 +9,7 @@ import com.couponsystem.beans.Coupon;
 import com.couponsystem.beans.Customer;
 import com.couponsystem.beans.CustomersVsCoupons;
 import com.couponsystem.exceptions.CouponSystemException;
+import com.couponsystem.exceptions.CouponsNotFoundException;
 import com.couponsystem.exceptions.PurchaseCouponException;
 
 public class CustomerFacade extends ClientFacade {
@@ -19,9 +20,9 @@ public class CustomerFacade extends ClientFacade {
 		this.customerId = customerId;
 	}
 
-	public CustomerFacade() {
-		super();
-	}
+//	public CustomerFacade() {
+//		super();
+//	}
 
 //	------------------------------------------------------------------------------------------------------------
 
@@ -41,84 +42,76 @@ public class CustomerFacade extends ClientFacade {
 
 	public void purchaseCoupon(Coupon coupon) throws CouponSystemException {
 
-//		The customer can't purchase the coupon more then once:
-
+		Coupon couponFromDb = couponsDAO.getOneCoupon((coupon.getId()));
 		List<CustomersVsCoupons> customerVsCoupons = couponsDAO.getAllCustomersVsCoupons();
 
+//		The customer can't purchase the coupon more then once:
 		for (CustomersVsCoupons custVsCoup : customerVsCoupons) {
-			if (custVsCoup.getCustomerId() == customerId && custVsCoup.getCouponId() == coupon.getId()) {
+			if (custVsCoup.getCustomerId() == this.customerId && custVsCoup.getCouponId() == coupon.getId()) {
 				throw new PurchaseCouponException("Purchasing this type of coupon is limited to one use only."
 						+ " you are welcome to choose another coupon.");
 			}
 		}
 
-//		The customer can't purchase the coupon if amount<0:
-
-		Coupon couponFromDb = couponsDAO.getOneCoupon((coupon.getId()));
-
+//		The customer can't purchase the coupon if amount < 0:
 		if (couponFromDb.getAmount() == 0) {
 			throw new PurchaseCouponException("Coupon out of stock, you are welcome to choose another coupon.");
 		}
 
 //		The customer can't purchase the coupon if the coupon has expired:
-
 		if (couponFromDb.getEndDate().isBefore(LocalDate.now())) {
 			throw new PurchaseCouponException("This coupon has expired, you are welcome to choose another coupon.");
 		}
 
 //		If purchase was done - going to lower the quantity in stock:
-
 		System.out.println("Testing decrease amount by 1 after coupon purchase:");
-		System.out.println(couponFromDb);
 		couponFromDb.setAmount(couponFromDb.getAmount() - 1);
-		System.out.println(couponFromDb);
 
-//			Going to update purchase in all relevant tables:
-
+//		Going to update purchase in all relevant tables:
 		couponsDAO.updateCoupon(couponFromDb);
 		System.out.println("Going to update purchase in all relevant tables...");
-		couponsDAO.addCouponPurchase(customerId, coupon.getId());
+		couponsDAO.addCouponPurchase(this.customerId, coupon.getId());
 		System.out.println("DONE");
-		System.out.println(couponsDAO.getAllCouponsByCustomerID(customerId));
-		System.out.println("************************************************************************************");
+		System.out.println();
+		}
+
+	public List<Coupon> getAllCustomerCoupons() throws CouponSystemException {
+
+		List<Coupon> allCCustCoup = new ArrayList<Coupon>();
+		allCCustCoup = couponsDAO.getAllCouponsByCustomerID(customerId);
+		
+		if (allCCustCoup.isEmpty()) {
+			throw new CouponsNotFoundException();
+		}
+		return allCCustCoup;
 	}
 
-	public List<Coupon> getAllCustomerCoupons() {
+	public List<Coupon> getCustomerCouponsByCategory(Category category) throws CouponSystemException {
 
-		return couponsDAO.getAllCouponsByCustomerID(customerId);
-	}
-
-	public List<Coupon> getCustomerCouponsByCategory(Category category) {
-
-		List<Coupon> coup = couponsDAO.getAllCouponsByCustomerID(customerId);
 		List<Coupon> coupByCategory = new ArrayList<Coupon>();
-
-		for (Coupon c : coup) {
-			if (c.getCategory().equals(category)) {
-				coupByCategory.add(c);
-			}
+		coupByCategory = couponsDAO.getAllCouponsByCategoryAndCustomerId(category, 2);			
+		
+		if (coupByCategory.isEmpty()) {
+			throw new CouponsNotFoundException();
 		}
 		return coupByCategory;
 	}
 
-	public List<Coupon> getCustomerCouponsUnderMaxPrice(double maxPrice) {
-
-		List<Coupon> coup = couponsDAO.getAllCouponsByCustomerID(customerId);
-		List<Coupon> CouponsUnderMaxPrice = new ArrayList<Coupon>();
-
-		for (Coupon c : coup) {
-			if (c.getPrice() < maxPrice) {
-				CouponsUnderMaxPrice.add(c);
-			}
+	public List<Coupon> getCustomerCouponsUnderMaxPrice(double maxPrice) throws CouponSystemException {
+		
+		List<Coupon> coupUnderMax = new ArrayList<Coupon>();
+		coupUnderMax = couponsDAO.getAllCouponsByCustomerIdUnderMaxPrice(this.customerId, maxPrice);
+		
+		if (coupUnderMax.isEmpty()) {
+			throw new CouponsNotFoundException();
 		}
-		return CouponsUnderMaxPrice;
+		return coupUnderMax;
 	}
 
-	public Customer getCustomerDetails() {
+	public Customer getCustomerDetails() throws CouponSystemException {
 
 		Customer cust = customersDAO.getOneCustomer(customerId);
 		cust.setCoupons(getAllCustomerCoupons());
-
 		return cust;
 	}
 }

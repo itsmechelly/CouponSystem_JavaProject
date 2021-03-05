@@ -1,5 +1,6 @@
 package com.couponsystem.facade;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.couponsystem.beans.Category;
@@ -69,19 +70,21 @@ public class CompanyFacade extends ClientFacade {
 		couponsDAO.deleteCouponByCouponIdAndCompanyId(couponId, this.companyId);
 	}
 
-	public List<Coupon> getAllCompanyCoupons() throws CouponsNotFoundException {
+	public List<Coupon> getAllCompanyCoupons() throws CouponSystemException {
 
-		List<Coupon> allCoumCoup = couponsDAO.getAllCouponsByCompanyID(companyId);
+		List<Coupon> allCompCoup = new ArrayList<Coupon>();
+		allCompCoup = couponsDAO.getAllCouponsByCompanyID(companyId);
 		
-		if (allCoumCoup.isEmpty()) {
+		if (allCompCoup.isEmpty()) {
 			throw new CouponsNotFoundException();
 		}
-		return allCoumCoup;
+		return allCompCoup;
 	}
 
-	public List<Coupon> getCompanyCouponsByCategory(Category category) throws CouponsNotFoundException {
+	public List<Coupon> getCompanyCouponsByCategory(Category category) throws CouponSystemException {
 
-		List<Coupon> coupByCategory = couponsDAO.getAllCouponsByCategoryAndCompanyId(category, this.companyId);
+		List<Coupon> coupByCategory = new ArrayList<Coupon>();
+		coupByCategory = couponsDAO.getAllCouponsByCategoryAndCompanyId(category, this.companyId);
 		
 		if (coupByCategory.isEmpty()) {
 			throw new CouponsNotFoundException();
@@ -89,9 +92,10 @@ public class CompanyFacade extends ClientFacade {
 		return coupByCategory;
 	}
 
-	public List<Coupon> getCompanyCouponsUnderMaxPrice(double maxPrice) throws CouponsNotFoundException {
+	public List<Coupon> getCompanyCouponsUnderMaxPrice(double maxPrice) throws CouponSystemException {
 		
-		List<Coupon> coupUnderMax = couponsDAO.getAllCouponsByCompanyIdUnderMaxPrice(this.companyId, maxPrice);
+		List<Coupon> coupUnderMax = new ArrayList<Coupon>();
+		coupUnderMax = couponsDAO.getAllCouponsByCompanyIdUnderMaxPrice(this.companyId, maxPrice);
 		
 		if (coupUnderMax.isEmpty()) {
 			throw new CouponsNotFoundException();
@@ -99,7 +103,7 @@ public class CompanyFacade extends ClientFacade {
 		return coupUnderMax;
 	}
 
-	public Company getCompanyDetails() throws CouponsNotFoundException {
+	public Company getCompanyDetails() throws CouponSystemException {
 
 		Company comp = companiesDAO.getOneCompany(companyId);
 		comp.setCoupons(getAllCompanyCoupons());
