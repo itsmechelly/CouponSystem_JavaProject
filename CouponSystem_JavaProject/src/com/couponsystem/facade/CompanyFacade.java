@@ -19,10 +19,6 @@ public class CompanyFacade extends ClientFacade {
 		this.companyId = companyId;
 	}
 
-//	public CompanyFacade() {
-//		super();
-//	}
-
 //	------------------------------------------------------------------------------------------------------------
 
 	@Override

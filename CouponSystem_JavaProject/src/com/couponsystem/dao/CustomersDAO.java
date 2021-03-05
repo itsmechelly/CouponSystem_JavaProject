@@ -18,7 +18,6 @@ public interface CustomersDAO {
 
 	boolean isCustomerExist(String email, String password);
 
-	// This method has been used in customerFacade.getCustomerIdByEmailAndPasswordForLogin method.
 	int getCustomerIdByEmailAndPasswordForLogin(String email, String password);
 
 }

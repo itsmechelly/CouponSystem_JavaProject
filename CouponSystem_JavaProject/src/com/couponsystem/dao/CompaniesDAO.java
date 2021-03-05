@@ -18,12 +18,9 @@ public interface CompaniesDAO {
 
 	boolean isCompanyExists(String email, String password);
 
-	// This method has been used in adminFacade.addCompany method.
 	boolean isCompanyNameExists(String companyName);
 	
-	// This method has been used in adminFacade.addCompany method.
 	boolean isCompanyEmailExists(String companyEmail);
 
-	// This method has been used in companyFacade.getCompanyIdByEmailAndPassword method.
 	int getCompanyIdByEmailAndPasswordForLogin(String email, String password);
 }

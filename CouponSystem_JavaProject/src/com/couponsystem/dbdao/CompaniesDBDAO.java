@@ -19,6 +19,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
 	private static final String DELETE_COMPANY_QUERY = "DELETE FROM `coupon_system`.`companies` WHERE (`id` = ?);";
 	private static final String GET_ONE_COMPANY_QUERY = "SELECT * FROM `coupon_system`.`companies` WHERE (`id` = ?);";
 	private static final String GET_ALL_COMPANIES_QUERY = "SELECT * FROM `coupon_system`.`companies`;";
+	
 	private static final String IS_COMPANY_EXISTS_QUERY = "SELECT * FROM coupon_system.companies WHERE `email` = ? AND `password` = ?;";
 	private static final String IS_COMPANY_NAME_EXISTS_QUERY = "SELECT `name` FROM coupon_system.companies WHERE `name` = ?;";
 	private static final String IS_COMPANY_EMAIL_EXISTS_QUERY = "SELECT `email` FROM coupon_system.companies WHERE `email` = ?;";
@@ -41,7 +42,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
 			statement.executeUpdate();
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.getMessage();
 		} finally {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
@@ -66,7 +67,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
 			statement.executeUpdate();
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.getMessage();
 		} finally {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
@@ -88,7 +89,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
 			statement.executeUpdate();
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.getMessage();
 		} finally {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
@@ -119,7 +120,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
 			}
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.getMessage();
 		} finally {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
@@ -151,7 +152,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
 			}
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.getMessage();
 		} finally {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
@@ -179,7 +180,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
 			}
 			
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.getMessage();
 		} finally {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
@@ -187,9 +188,6 @@ public class CompaniesDBDAO implements CompaniesDAO {
 		return false;
 	}
 
-	/**
-	 * This method has been used in adminFacade.addCompany method.
-	 */
 	@Override
 	public boolean isCompanyNameExists(String companyName) {
 		
@@ -209,17 +207,14 @@ public class CompaniesDBDAO implements CompaniesDAO {
 			}
 			
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.getMessage();
 		} finally {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
 		}
 		return false;
 	}
-	
-	/**
-	 * This method has been used in adminFacade.addCompany method.
-	 */
+
 	@Override
 	public boolean isCompanyEmailExists(String companyEmail) {
 
@@ -239,17 +234,14 @@ public class CompaniesDBDAO implements CompaniesDAO {
 			}
 			
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.getMessage();
 		} finally {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
 		}
 		return false;
 	}
-	
-	/**
-	 * This method has been used in companyFacade.getCompanyIdByEmailAndPasswordForLogin method.
-	 */
+
 	@Override
 	public int getCompanyIdByEmailAndPasswordForLogin(String email, String password) {
 
@@ -272,7 +264,7 @@ public class CompaniesDBDAO implements CompaniesDAO {
 			}
 			
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.getMessage();
 		} finally {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;

@@ -20,10 +20,6 @@ public class CustomerFacade extends ClientFacade {
 		this.customerId = customerId;
 	}
 
-//	public CustomerFacade() {
-//		super();
-//	}
-
 //	------------------------------------------------------------------------------------------------------------
 
 	@Override

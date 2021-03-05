@@ -14,12 +14,13 @@ public class CustomersDBDAO implements CustomersDAO {
 
 	private Connection connection;
 
-	private static final String IS_CUSTOMER_EXISTS_QUERY = "SELECT * FROM coupon_system.customers WHERE `email` = ? AND `password` = ?;";
 	private static final String ADD_CUSTOMER_QUERY = "INSERT INTO `coupon_system`.`customers` (`first_name`, `last_name`, `email`, `password`) VALUES (?, ?, ?, ?);";
 	private static final String UPDATE_CUSTOMER_QUERY = "UPDATE `coupon_system`.`customers` SET `first_name` = ?, `last_name` = ?, `email` = ?, `password` = ? WHERE (`id` = ?);";
 	private static final String DELETE_CUSTOMER_QUERY = "DELETE FROM `coupon_system`.`customers` WHERE (`id` = ?);";
-	private static final String GET_ALL_CUSTOMERS_QUERY = "SELECT * FROM `coupon_system`.`customers`;";
 	private static final String GET_ONE_CUSTOMER_QUERY = "SELECT * FROM coupon_system.customers WHERE `id` = ?;";
+	private static final String GET_ALL_CUSTOMERS_QUERY = "SELECT * FROM `coupon_system`.`customers`;";
+	
+	private static final String IS_CUSTOMER_EXISTS_QUERY = "SELECT * FROM coupon_system.customers WHERE `email` = ? AND `password` = ?;";
 	private static final String GET_CUSTOMER_ID_BY_EMAIL_AND_PASSWORD_QUERY = "SELECT `id` FROM coupon_system.customers WHERE `email` = ? AND `password` = ?;";
 
 	@Override
@@ -40,7 +41,7 @@ public class CustomersDBDAO implements CustomersDAO {
 			statement.executeUpdate();
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.getMessage();
 		} finally {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
@@ -66,7 +67,7 @@ public class CustomersDBDAO implements CustomersDAO {
 			statement.executeUpdate();
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.getMessage();
 		} finally {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
@@ -88,7 +89,7 @@ public class CustomersDBDAO implements CustomersDAO {
 			statement.executeUpdate();
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.getMessage();
 		} finally {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
@@ -120,7 +121,7 @@ public class CustomersDBDAO implements CustomersDAO {
 			}
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.getMessage();
 		} finally {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
@@ -153,7 +154,7 @@ public class CustomersDBDAO implements CustomersDAO {
 			}
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.getMessage();
 		} finally {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
@@ -181,7 +182,7 @@ public class CustomersDBDAO implements CustomersDAO {
 			}
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.getMessage();
 		} finally {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
@@ -189,9 +190,6 @@ public class CustomersDBDAO implements CustomersDAO {
 		return false;
 	}
 
-	/**
-	 * This method has been used in customerFacade.getCustomerIdByEmailAndPasswordForLogin method.
-	 */
 	@Override
 	public int getCustomerIdByEmailAndPasswordForLogin(String email, String password) {
 
@@ -214,7 +212,7 @@ public class CustomersDBDAO implements CustomersDAO {
 			}
 
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.getMessage();
 		} finally {
 			ConnectionPool.getInstance().returnConnection(connection);
 			connection = null;
