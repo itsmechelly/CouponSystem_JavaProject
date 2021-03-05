@@ -243,9 +243,6 @@ public class CouponsDBDAO implements CouponsDAO {
 		}
 	}
 
-	/**
-	 * This method has been used in CustomerFacade.purchaseCoupon method.
-	 */
 	@Override
 	public List<CustomersVsCoupons> getAllCustomersVsCoupons() {
 
@@ -276,9 +273,6 @@ public class CouponsDBDAO implements CouponsDAO {
 		return customersVsCoupons;
 	}
 
-	/**
-	 * This method has been used in CompanyFacade.addCompanyCoupon method.
-	 */
 	@Override
 	public List<Coupon> getAllCouponsByCompanyID(int companyID) {
 
@@ -319,9 +313,6 @@ public class CouponsDBDAO implements CouponsDAO {
 		return coupons;
 	}
 
-	/**
-	 * This method has been used in CustomerFacade.addCompanyCoupon method.
-	 */
 	@Override
 	public List<Coupon> getAllCouponsByCustomerID(int customerID) {
 		
@@ -362,10 +353,6 @@ public class CouponsDBDAO implements CouponsDAO {
 		return coupons;
 	}
 
-	/**
-	 * This method has been used in: adminFacade.deleteCompany,
-	 * companyFacade.deleteCompanyCoupon, CouponExpirationDailyJob method.
-	 */
 	@Override
 	public void deleteCouponPurchaseForFacade(int couponID) {
 
@@ -388,9 +375,6 @@ public class CouponsDBDAO implements CouponsDAO {
 		}
 	}
 
-	/**
-	 * This method has been used in: companyFacade.addCompanyCoupon method.
-	 */
 	@Override
 	public boolean isCouponTitleByCompanyIdExist(String title, int companyId) {
 		try {
@@ -418,9 +402,6 @@ public class CouponsDBDAO implements CouponsDAO {
 		return false;
 	}
 
-	/**
-	 * This method has been used in companyFacade.deleteCompanyCoupons method.
-	 */
 	@Override
 	public void deleteCouponByCouponIdAndCompanyId(int couponId, int companyId) {
 
