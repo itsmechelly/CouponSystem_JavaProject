@@ -34,7 +34,6 @@ public class MainTest {
 		AdminTest.adminTest();
 		CompanyTest.companyTest();
 		CustomerTest.customerTest();
-//		...   ...   ... need to testAll(); over here.
 		
 //		------------------------------------------------------------------------------------------------------------
 
