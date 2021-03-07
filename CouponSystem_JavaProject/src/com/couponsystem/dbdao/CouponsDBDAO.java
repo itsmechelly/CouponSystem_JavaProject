@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class CouponsDBDAO implements CouponsDAO {
 	private static final String DELETE_COUPON_QUERY = "DELETE FROM `coupon_system`.`coupons` WHERE (`id` = ?);";
 	private static final String GET_ONE_COUPON_QUERY = "SELECT * FROM `coupon_system`.`coupons` WHERE (`id` = ?);";
 	private static final String GET_ALL_COUPONS_QUERY = "SELECT * FROM `coupon_system`.`coupons`;";
-	
+
 	private static final String IS_COUPON_TITLE_BY_COMPANY_ID_EXIST_QUERY = "SELECT `title` FROM coupon_system.coupons WHERE `title` = ? AND `company_id` = ?;";
 	private static final String DELETE_COUPON_BY_COUPON_ID_AND_COMPANY_ID_QUERY = "DELETE FROM `coupon_system`.`coupons` WHERE `id` = ? AND `company_id` = ?;";
 	private static final String GET_ALL_COUPONS_BY_COMPANY_ID_QUERY = "SELECT * FROM `coupon_system`.`coupons` WHERE (`company_id` = ?);";
@@ -37,7 +38,8 @@ public class CouponsDBDAO implements CouponsDAO {
 	private static final String GET_ALL_COUPONS_BY_CATEGORY_AND_CUSTOMER_ID_QUERY = "SELECT * from `coupon_system`.`coupons` inner join `coupon_system`.`customers_vs_coupons` ON coupons.id = `customers_vs_coupons`.coupon_id WHERE customer_id = ? AND category_id = ?;";
 	private static final String GET_ALL_COUPONS_BY_CUSTOMER_ID_UNDER_MAX_PRICE_QUERY = "SELECT * from `coupon_system`.`coupons` inner join `coupon_system`.`customers_vs_coupons` on coupons.id = `customers_vs_coupons`.coupon_id WHERE customer_id = ? AND `price` <= ? ORDER BY `price`;";
 
-	
+	private static final String DELETE_EXPIRED_COUPONS_QUERY = "SELECT id FROM `coupon_system`.`coupons` WHERE end_date < ?;";
+
 	@Override
 	public void addCoupon(Coupon coupon) {
 
@@ -472,7 +474,7 @@ public class CouponsDBDAO implements CouponsDAO {
 
 	@Override
 	public List<Coupon> getAllCouponsByCustomerID(int customerID) {
-		
+
 		List<Coupon> coupons = new ArrayList<Coupon>();
 
 		try {
@@ -591,5 +593,33 @@ public class CouponsDBDAO implements CouponsDAO {
 		}
 		return coupons;
 	}
-	
+
+	@Override
+	public void deleteExpiredCouponsForDailyJob() {
+
+		try {
+			connection = ConnectionPool.getInstance().getConnection();
+
+			String sql = DELETE_EXPIRED_COUPONS_QUERY;
+
+			PreparedStatement statement = connection.prepareStatement(sql);
+			LocalDate experationDate = LocalDate.now();
+			statement.setDate(1, Date.valueOf(experationDate));
+			ResultSet resultSet = statement.executeQuery();
+
+			while (resultSet.next()) {
+				int id = resultSet.getInt("id");
+				deleteCouponPurchaseForFacade(id);
+				deleteCoupon(id);
+				System.out.println("Expired coupon with couponId = " + id + " was deleted.");
+			} 
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			ConnectionPool.getInstance().returnConnection(connection);
+			connection = null;
+		}
+	}
+
 }

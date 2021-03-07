@@ -42,4 +42,5 @@ public interface CouponsDAO {
 
 	List<Coupon> getAllCouponsByCustomerIdUnderMaxPrice(int CustomerId, double maxPrice);
 
+	void deleteExpiredCouponsForDailyJob();
 }

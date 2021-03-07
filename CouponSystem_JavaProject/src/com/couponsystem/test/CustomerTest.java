@@ -122,6 +122,7 @@ public class CustomerTest {
 		TestUtils.testSeparatedLine("Testing Customer Facade - getCustomerDetails:");
 		try {
 			System.out.println(customerUser.getCustomerDetails());
+			System.out.println();
 		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}

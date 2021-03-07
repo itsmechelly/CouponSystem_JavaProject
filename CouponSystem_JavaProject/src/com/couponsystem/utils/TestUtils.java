@@ -123,6 +123,20 @@ public class TestUtils {
 						+ "                                                                                  ");
 	}
 
+	public static void dailyJobManifulation() {
+		System.out.println("   _  \r\n" + " _( )_\r\n" + "(_ o _)\r\n" + " (_,_)");
+		System.out.println("\r\n"
+				+ "______      _ _           ___       _      ___  ___            _  __       _       _   _             \r\n"
+				+ "|  _  \\    (_) |         |_  |     | |     |  \\/  |           (_)/ _|     | |     | | (_)            \r\n"
+				+ "| | | |__ _ _| |_   _      | | ___ | |__   | .  . | __ _ _ __  _| |_ _   _| | __ _| |_ _  ___  _ __  \r\n"
+				+ "| | | / _` | | | | | |     | |/ _ \\| '_ \\  | |\\/| |/ _` | '_ \\| |  _| | | | |/ _` | __| |/ _ \\| '_ \\ \r\n"
+				+ "| |/ / (_| | | | |_| | /\\__/ / (_) | |_) | | |  | | (_| | | | | | | | |_| | | (_| | |_| | (_) | | | |\r\n"
+				+ "|___/ \\__,_|_|_|\\__, | \\____/ \\___/|_.__/  \\_|  |_/\\__,_|_| |_|_|_|  \\__,_|_|\\__,_|\\__|_|\\___/|_| |_|\r\n"
+				+ "                 __/ |                                                                               \r\n"
+				+ "                |___/                                                                                \r\n"
+				+ "");
+	}
+
 	public static void printCompaniesTable(List<Company> arrayList) {
 		System.out.println();
 		System.out.printf("%10s %10s %20s %10s %10s", "id", "name", "email", "password", "coupons");
