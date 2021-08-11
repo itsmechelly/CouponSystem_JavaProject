@@ -33,8 +33,8 @@ public class CouponExpirationDailyJob implements Runnable{
 				
 				couponsDBDAO.deleteExpiredCouponsForDailyJob();
 				
-				Thread.sleep(TimeUnit.SECONDS.toMillis(22)); // for testing
-				// Thread.sleep(TimeUnit.HOURS.toMillis(24)); // runtime
+				//Thread.sleep(TimeUnit.SECONDS.toMillis(22)); // for testing
+				Thread.sleep(TimeUnit.HOURS.toMillis(24)); // runtime
 				
 			} catch (InterruptedException e) {
 				
