@@ -271,5 +271,4 @@ public class CompaniesDBDAO implements CompaniesDAO {
 		}
 		return id;
 	}
-
 }

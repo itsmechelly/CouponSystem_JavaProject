@@ -105,5 +105,4 @@ public class Coupon {
 				+ ", description=" + description + ", startDate=" + startDate + ", endDate=" + endDate + ", amount="
 				+ amount + ", price=" + price + ", image=" + image + "]";
 	}
-
 }

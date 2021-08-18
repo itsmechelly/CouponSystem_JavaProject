@@ -19,8 +19,6 @@ public class CompanyFacade extends ClientFacade {
 		this.companyId = companyId;
 	}
 
-//	------------------------------------------------------------------------------------------------------------
-
 	@Override
 	public boolean login(String email, String password) {
 		if (companiesDAO.isCompanyExists(email, password)) {
@@ -105,5 +103,4 @@ public class CompanyFacade extends ClientFacade {
 		comp.setCoupons(getAllCompanyCoupons());
 		return comp;
 	}
-
 }

@@ -232,6 +232,5 @@ public class CompanyTest {
 		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
-
 	}
 }

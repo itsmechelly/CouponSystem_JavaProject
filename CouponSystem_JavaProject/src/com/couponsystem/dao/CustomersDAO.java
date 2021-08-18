@@ -19,5 +19,4 @@ public interface CustomersDAO {
 	boolean isCustomerExist(String email, String password);
 
 	int getCustomerIdByEmailAndPasswordForLogin(String email, String password);
-
 }

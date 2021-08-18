@@ -126,6 +126,5 @@ public class CustomerTest {
 		} catch (CouponSystemException e) {
 			System.out.println(e.getMessage());
 		}
-
 	}
 }

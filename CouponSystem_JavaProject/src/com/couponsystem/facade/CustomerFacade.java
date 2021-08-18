@@ -20,8 +20,6 @@ public class CustomerFacade extends ClientFacade {
 		this.customerId = customerId;
 	}
 
-//	------------------------------------------------------------------------------------------------------------
-
 	@Override
 	public boolean login(String email, String password) {
 		if (customersDAO.isCustomerExist(email, password)) {
@@ -101,5 +99,4 @@ public class CustomerFacade extends ClientFacade {
 		cust.setCoupons(getAllCustomerCoupons());
 		return cust;
 	}
-	
 }

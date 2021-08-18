@@ -621,5 +621,4 @@ public class CouponsDBDAO implements CouponsDAO {
 			connection = null;
 		}
 	}
-
 }

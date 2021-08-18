@@ -58,5 +58,4 @@ public class LoginManager {
 			throw new LogException();
 		}
 	}
-
 }

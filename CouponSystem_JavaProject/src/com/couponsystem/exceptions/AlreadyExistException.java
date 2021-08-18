@@ -2,9 +2,6 @@ package com.couponsystem.exceptions;
 
 public class AlreadyExistException extends CouponSystemException {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public AlreadyExistException(String string, String string2) {

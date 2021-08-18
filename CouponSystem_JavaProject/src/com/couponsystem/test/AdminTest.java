@@ -259,6 +259,5 @@ public class AdminTest {
 
 		TestUtils.testSeparatedLine("Testing Admin Facade - getAllCustomers:");
 		TestUtils.printCustomersTable(adminUser.getAllCustomers());
-
 	}
 }

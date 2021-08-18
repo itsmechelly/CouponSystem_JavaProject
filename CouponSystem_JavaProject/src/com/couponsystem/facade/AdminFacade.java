@@ -11,8 +11,6 @@ import com.couponsystem.exceptions.NotAllowedException;
 
 public class AdminFacade extends ClientFacade {
 
-//	------------------------------------------------------------------------------------------------------------
-
 	@Override
 	public boolean login(String email, String password) {
 		if (email.equalsIgnoreCase("admin@admin.com") && password.equals("admin")) {
@@ -121,5 +119,4 @@ public class AdminFacade extends ClientFacade {
 		}
 		return cust;
 	}
-
 }
