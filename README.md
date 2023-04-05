@@ -53,7 +53,7 @@ Click here to see this project on Github:<br/>
 https://github.com/itsmechelly/CouponSystem_SpringProject_JwtTechnique<br/><br/>
 👉 NOTE: this project is the final version and deployed to AWS cloud, click to browse the website:<br/>
 LINK WILL BE ADDED SOON
-<br/>
+<br/><br/>
 👉 To login, use those details:<br/>
 Admin: ➡️ e-mail: admin@admin.com password: admin<br/>
 Company: ➡️ e-mail: zootAllures@company.com password: zootAllures<br/>
@@ -63,35 +63,47 @@ Customer: ➡️ e-mail: cust1@cust.com password: 1111<br/>
 This part of the application was written using React libraries and is built as a Single Page Application (SPA).<br/>
 The communication between server side and client side was done using Json and RESTful API.<br/><br/>
 Click here to see this project on Github:<br/>
-https://github.com/itsmechelly/CouponSystem_ReactProject<br/>
+https://github.com/itsmechelly/CouponSystem_ReactProject<br/><br/>
 👉 NOTE: this project is the final version and deployed to AWS cloud, click to browse the website:<br/>
 LINK WILL BE ADDED SOON
-<br/>
+<br/><br/>
 👉 To login, use those details:<br/>
 Admin: ➡️ e-mail: admin@admin.com password: admin<br/>
 Company: ➡️ e-mail: zootAllures@company.com password: zootAllures<br/>
 Customer: ➡️ e-mail: cust1@cust.com password: 1111<br/>
 
 # Application Architecture – 1ST Project
-##Building Java Beans classes that represent the information in the database:
+## Building Java Beans classes that represent the information in the database:
 Java Beans are pure information classes that represent the information managed by the application.<br/>
 Later, the DAO (Data Access Objects) classes will receive these Java Beans objects, define the tables in the database and translate them into SQL queries.<br/>
 Below is the diagram of the Java Beans classes:<br/><br/>
-
 ![image](https://user-images.githubusercontent.com/60425986/230057713-4a48283c-67f8-4b87-8c46-4c9aac19b5c4.png)
 
+## Building a ConnectionPool that enables the management of the Connections to the database:
+A basic infrastructure service called ConnectionPool was established and will be manage the connections to the database.<br/>
+The ConnectionPool is a Singleton class (of which there is one and only object), which allows to manage a fixed number of Connections to the database.<br/>
+The Connections are stored in a database (set type collection) at the department level.<br/>
+Below is the ConnectionPool class diagram:<br/><br/>
+![image](https://user-images.githubusercontent.com/60425986/230059384-839e6b61-0a73-4c16-9b63-a9996e078149.png)
+
+## Building the DAO classes - Data Access Objects that allow performing general CRUD operations on the database:
+An isolation layer named DAO and its implementation DBDAO was established above the database, which will allow convenient work from Java to the database. <br/>
+Data Access Objects - DAO classes are classes that allow general CRUD operations to be performed on the tables in the database.<br/><br/>
+These classes:<br/>
+-	Won’t perform the logic related to the application, but only general CRUD operations.
+-	Generate an SQL query and execute the queries in the data institution.
+-	Use the ConnectionPool to obtain a connection to the database to perform the various operations.<br/><br/>
+
+The DAO class is an interface that is defined as a separation layer. Each of the DAO interfaces has a DBDAO class where the implementation of each method is found.<br/>
+Creating the DAO interfaces is useful for several reasons. One of them is that through this separation layer, if a different database than the existing one is needed in the future, it will be possible to replace the database without touching the rest of the system, but only by replacing the DBDAO layer.<br/>
+Below is the diagram of the DAO and DBDAO:<br/><br/>
+![image](https://user-images.githubusercontent.com/60425986/230059954-68a35bac-78f3-4a61-9818-c73cf3dc6463.png)
 
 
 
 
-# Extra Details
 
-### 👉 Communication Between the Microservice Modules
-The communication between the two verticles will be by using [Vert.x Event Bus](https://vertx.io/).
-### 👉 Cluster Manager
-The Application will be running in cluster mode by using [Hazelcast In-Memory Data Grid (IMDG)Open Source](https://hazelcast.com/).
-### 👉 Docker
-The maven package will be generating a docker-compose YAML that will contain two containers for the 2 verticles.
+
 
 # 🚍 Tech Stack
 Language & Framework: Java, Maven
@@ -105,97 +117,6 @@ Architecture & Design Patterns: Microservice Application, Reactive Application
 Client-Side UI: HTML, CSS, Bootstrap 5
 <br/>
 
-# Application Architecture
-
-## RestVerticle module:
-🛠 This java module will be a Vert.x verticle and will contain 2 classes:<br/>
-### Main class:
-`main(String[] args)` – To run the application in a cluster mode, the main class will use Vert.x implementation of Hazelcast as a cluster manager <br/><br/>
-`getAddress()` – This method will use the NetworkInterface to locate and filter the IP addresses.<br/>
-The relevant IP address will be sent back to the main method.<br/>
-### RestVerticle class:
-🛠 First, we will start by creating HTTP Server and Router:<br/><br/>
-`start(Promise<Void> startPromise)` – This method starts an HTTP server.
-The method create a Vert.x HTTP server and then handle requests using the router generated from the createRouter() method (listening to port 8080).<br/><br/>
-`createRouter()` – This method creates a Vert.x Web Router (the object used to route HTTP requests to specific request handlers). The method will return Vert.x Web Router.<br/><br/>
-🛠 Then, this class will expose a REST API (using Vert.x) with 5 REST methods:<br/><br/>
-`GET: greetingHandler(RoutingContext context)` – This method greeting the user at the main endpoint.<br/><br/>
-`POST: loginHandler(RoutingContext context)` – This method will use the RoutingContext interface to get the username and password from the user, and check if the user can be logged in (username and password will be saved in local JSON file). In the background the module should open a session for each user that logged in.<br/><br/>
-`POST: logoutHandler(RoutingContext context)` – This method will be used to log out from the user session, his session will be destroyed.<br/><br/>
-`POST: addOrderHandler(RoutingContext context)` – This method will add an order to the user.<br/>
-By using Vert.x Event Bus, the order will be sent to the OrderVerticle module.<br/><br/>
-`GET: getOrdersHandler(RoutingContext context)` – This method will return all user orders.<br/>
-The request to get the data will be sent by Vert.x Event Bus to the OrderVerticle module.<br/><br/>
-🛠 Extra methods used in this class to support those REST methods:<br/><br/>
-`sessionAuth(RoutingContext context)` – Helper method to check if users session is permitted. <br/><br/>
-`contextResponse(RoutingContext context, String errorValue, String loginValue, Integer httpStatus)` – Helper method to print error values in case one of the endpoints collapse, or get runtime error.<br/>
-This method used in other methods exist in this java class, I added it for clean code. 😊
-
-## OrderVerticle module:
-🛠 This java module will be a vert.x verticle and will contain 2 classes:
-### Main class:
-`main(String[] args)` – To run the application in a cluster mode, the main class will use Vert.x implementation of Hazelcast as a cluster manager. This method will generate the hazelcast configuration and set the destination address.<br/><br/>
-`getAddress()` – This method will use the NetworkInterface to locate and filter the IP addresses.<br/>
-The relevant IP address will be sent back to the main method.
-### OrderVerticle class:
-🛠 First, by using Vert.x Event Bus, we will manage requests that received:<br/><br/>
-`start(Promise<Void> promise)` – This method use Verte.x Event Bus to manage requests received from the RestVertical module. The Event Bus will direct each request to the relevant method.<br/><br/>
-`addOrder(Message<Object> message, String orderId, String orderName, String orderDate)` – This method add new orders to the user existing orders. All the data will be saved in a local JSON file and include: orderID, orderName and orderDate. The response will be sent to the OrderVerticle module.<br/><br/>
-`getOrders(Message<Object> message)` – This method will return all user orders.
-The response will be sent to the OrderVerticle module.<br/><br/>
-🛠 Extra method used in this class to support other methods:<br/><br/>
-`messageResponse(Message<Object> message, String errorValue, String insertValue)` –  Helper method to print error values in case one of the endpoints collapse, or get runtime error.<br/>
-This method used in other methods exist in this java class, I added it for clean code. 😊
-
-
-# Endpoints
-👉 To run this Microservice properly, you should first run RestVerticle Module, and then the OrderVerticle Module.
-#### GET: greetingHandler(RoutingContext context)
-```http
-  	http://localhost:8080
-```
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `context` | `RoutingContext` | **Required**. The user context |
-
-![image](https://user-images.githubusercontent.com/60425986/229527473-11857d22-231e-4779-8919-4d91a58970a6.png)
-#### POST: loginHandler(RoutingContext context)
-```http
-  	http://localhost:8080/login
-```
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `context` | `RoutingContext` | **Required**. The user context |
-
-![image](https://user-images.githubusercontent.com/60425986/229525638-a08446d6-fca6-4ad4-a433-b209cd5420b5.png)
-#### POST: logoutHandler(RoutingContext context)
-```http
-  	http://localhost:8080/logout
-```
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `context` | `RoutingContext` | **Required**. The user context |
-
-![image](https://user-images.githubusercontent.com/60425986/229525701-df045808-6012-426b-929f-8c981372d0d6.png)
-
-#### POST: addOrderHandler(RoutingContext context)
-```http
-  	http://localhost:8080/add-order
-```
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `context` | `RoutingContext` | **Required**. The user context |
-
-![image](https://user-images.githubusercontent.com/60425986/229525766-db8206d2-34cb-46b1-bc70-5f6d34896af9.png)
-#### GET: getOrdersHandler(RoutingContext context)
-```http
-  	http://localhost:8080/get-orders
-```
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `context` | `RoutingContext` | **Required**. The user context |
-
-![image](https://user-images.githubusercontent.com/60425986/229525797-a11eb97a-6b43-402b-a921-ec1fc27fde02.png)
 
 <br/>
 Thanks for reading,
