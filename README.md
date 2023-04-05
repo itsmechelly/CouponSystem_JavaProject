@@ -29,7 +29,6 @@ For the database I used:<br/>
 In this project I used simple login() method for authentication & authorization.<br/><br/>
 
 👉 The current repo represent this 1st project.<br/>
-Click here to see this project on Github:<br/>
 https://github.com/itsmechelly/CouponSystem_JavaProject 
 
 ## 2️⃣ The 2nd Project: Spring Framework and Session Technique for Authentication & Authorization
@@ -137,7 +136,7 @@ In addition to the Java exceptions, I created system-specific exceptions:<br/><b
 ![image](https://user-images.githubusercontent.com/60425986/230061387-2925e6dc-13ae-4bb0-b277-12f1cd8d9674.png)
 
 
-# 🚍 Tech Stack
+# ⚒️ Tech Stack
 Language & Framework: Java Language
 <br/>
 Database: JDBC, SQL, MySQL
