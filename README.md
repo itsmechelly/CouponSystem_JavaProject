@@ -99,22 +99,54 @@ Creating the DAO interfaces is useful for several reasons. One of them is that t
 Below is the diagram of the DAO and DBDAO:<br/><br/>
 ![image](https://user-images.githubusercontent.com/60425986/230059954-68a35bac-78f3-4a61-9818-c73cf3dc6463.png)
 
+## Building the business logic for the three types of clients:
+The three types of clients are:<br/>
+-	Administrator
+-	Company
+-	Customer
 
+Each client has business logic operations needed to be performed. There are 3 dedicated departments that contain all those operations - one for each client(and later will be sent to the DAO layer).<br/>
 
+The three classes of business logic are:<br/>
+-	AdminFacade – contains the business logic of Administrator.
+-	CompanyFacade – contains the business logic of Company.
+-	CustomerFacade – contains the business logic of Customer.
 
+A Facade Design Pattern is used here.<br/>
+Such a design allows simple operations to be outsourced, which behind the scenes use a series of extra operations.<br/>
+Because these three classes need to use the DAO components - I defined an abstract base class – ClientFacade that reference to the DAO classes(it will first login() and then direct to the relevant DAO layer according to the client type).<br/>
+Below is the diagram representing the Facade architecture:<br/><br/>
+![image](https://user-images.githubusercontent.com/60425986/230060836-4a37e0f6-3066-4804-ab92-cd5d63f43e11.png)
 
+## Building a class that allows clients to login and then direct to the appropriate business logic:
+This class is a Singleton class named LoginManager that contains a method that allows each of the three clients to login the system.<br/>
+The class uses an Enum named ClientType.<br/>
+If the login is successful, each user will receive back a facade class according to the client type.<br/>
+Below is the diagram for Façade classes and LoginManager operations:<br/><br/>
+![image](https://user-images.githubusercontent.com/60425986/230061161-dfbdc9a5-a7c7-482a-8bdb-4c1d687e47c2.png)
+
+## Building a daily job to delete expired coupons from the system (Thread):
+A basic infrastructure service named CouponExpirationDailyJob was established to clean the system from expired coupons.<br/>
+The job is a thread that runs in the background regularly and checks and cleans coupons once every 24 hours.<br/>
+The job is executed using a Thread that runs parallel to the system activity.<br/>
+Below is the job diagram for this job activity:<br/><br/>
+![image](https://user-images.githubusercontent.com/60425986/230061229-cd73ce6e-cdb5-4a3d-b7b8-dd2588240351.png)
+
+## Using Custom Exceptions:
+In addition to the Java exceptions, I created system-specific exceptions:<br/><br/>
+![image](https://user-images.githubusercontent.com/60425986/230061387-2925e6dc-13ae-4bb0-b277-12f1cd8d9674.png)
 
 
 # 🚍 Tech Stack
-Language & Framework: Java, Maven
+Language & Framework: Java Language
 <br/>
-Asynchronous Tools: Eclipse Vert.x
+Database: JDBC, SQL, MySQL
 <br/>
-In-Memory Data Grid (IMDG): Hazelcast
+Architecture & Design Patterns: Singleton Pattern, Facade Pattern
 <br/>
-Architecture & Design Patterns: Microservice Application, Reactive Application
+Communication between Client side and Server side: Restful API
 <br/>
-Client-Side UI: HTML, CSS, Bootstrap 5
+Client-Side: React, JavaScript, Typescript, Bootstrap 5, HTML, CSS
 <br/>
 
 
